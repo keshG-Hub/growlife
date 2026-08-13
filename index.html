@@ -466,6 +466,9 @@ main{padding:8px 18px 40px;}
 .shape-card li{font-size:12.5px; color:var(--muted); line-height:1.65; margin-bottom:2px;}
 .tech-eff{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--gold); background:var(--ember-dim); padding:2px 8px; border-radius:6px; text-transform:uppercase; letter-spacing:0.04em; margin-top:3px;}
 .lm-task-eff{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--gold); margin-top:2px; text-transform:uppercase; letter-spacing:0.04em;}
+.avoid-list{margin:0; padding-left:17px;}
+.avoid-list li{font-size:12.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;}
+.avoid-list li b{color:var(--danger); font-weight:700;}
 </style>
 </head>
 <body>
@@ -668,7 +671,7 @@ main{padding:8px 18px 40px;}
   </section>
 
   <section class="section" id="sec-lookmax">
-    <div class="lookmax-disclaimer">Genetics set the ceiling — bone structure, canthal tilt, and jaw width are mostly fixed and no exercise or product changes them. These techniques work on what's actually changeable day to day: body fat, posture, grooming, skin, hair, and how you move and speak. That's most of what people are really reacting to when they call someone sharp, put-together, or magnetic.</div>
+    <div class="lookmax-disclaimer">Genetics set the ceiling — bone structure, canthal tilt, and jaw width are mostly fixed and no exercise or product changes them. These techniques work on what's actually changeable day to day: body fat, posture, grooming, skin, hair, and how you move and speak. That's most of what people are really reacting to when they call someone sharp, put-together, or magnetic. Don't turn this into chasing someone else's idea of a "perfect face" — use it to improve grooming, health, style, posture, and presentation while keeping your own natural features.</div>
 
     <div class="view-switch" id="lookmaxViewSwitch">
       <div class="view-btn active" data-lmview="tasks">Tasks</div>
@@ -682,6 +685,12 @@ main{padding:8px 18px 40px;}
     </div>
 
     <div id="lookmaxGuideView" style="display:none;">
+      <div class="growth-block">
+        <h3>What "Facial Aesthetics" Actually Means</h3>
+        <div class="calc-note" style="margin-top:-2px;">The goal is harmony between features, not maximizing any single one. These are the factors people are actually reacting to — most are about presentation and health, not bone structure.</div>
+        <div id="harmonyList"></div>
+      </div>
+
       <div class="section-label">Face Shape &amp; Matching Hairstyles</div>
       <div id="faceShapeList"></div>
 
@@ -693,6 +702,11 @@ main{padding:8px 18px 40px;}
       <div class="growth-block">
         <h3>Hunter Eyes / Eye Area</h3>
         <div id="eyesList"></div>
+      </div>
+
+      <div class="growth-block">
+        <h3>Teeth &amp; Smile</h3>
+        <div id="teethList"></div>
       </div>
 
       <div class="growth-block">
@@ -708,6 +722,11 @@ main{padding:8px 18px 40px;}
       <div class="growth-block">
         <h3>Speaking Voice &amp; Presence</h3>
         <div id="voiceList"></div>
+      </div>
+
+      <div class="growth-block">
+        <h3>Common Mistakes To Avoid</h3>
+        <div id="mistakesList"></div>
       </div>
     </div>
   </section>
@@ -1265,6 +1284,31 @@ const FACESHAPES = [
    hair:["Fringe / bangs — shortens the visible forehead-to-hairline distance","Side part with volume at the sides, not the top — adds width instead of length","Textured crop kept short on top — avoids adding more vertical length","Medium length with waves — horizontal texture reads as added width","Avoid tall pompadours or high spikes — extra height exaggerates the length"]}
 ];
 
+const FACIAL_HARMONY = [
+  {term:"Facial harmony", def:"How well the eyes, nose, lips, cheeks, jaw, and chin fit together as a whole. This is the actual goal — not maximizing any one feature on its own."},
+  {term:"Skin quality", def:"Clear, healthy-looking, well-maintained skin — already your entire Skincare habit chain in the Roadmap tab."},
+  {term:"Eyebrow shape", def:"Clean, naturally defined brows that frame the eyes. Groom, don't dramatically reshape."},
+  {term:"Eye area", def:"Symmetry, expression, and the overall appearance around the eyes — see Hunter Eyes below."},
+  {term:"Nose-to-face proportion", def:"How the nose relates to the rest of the face matters more than any particular nose shape — this is almost entirely fixed by genetics and isn't something to chase."},
+  {term:"Cheek structure", def:"Natural cheekbone definition and facial contours — mostly a function of body fat %, same as the jawline."},
+  {term:"Jaw/chin relationship", def:"Overall balance between the lower jaw and chin, not the size of either in isolation."},
+  {term:"Facial symmetry", def:"Some degree of symmetry is generally perceived as attractive, but nobody has perfect symmetry — including people considered conventionally attractive. Not a fixable or chaseable target."},
+  {term:"Hair framing", def:"A hairstyle that suits your face shape can make a bigger visible difference than almost anything else on this list — see Face Shape &amp; Hairstyles below."},
+  {term:"Teeth and smile", def:"Dental hygiene and a healthy smile have a strong effect on overall appearance — see Teeth &amp; Smile below."},
+  {term:"Facial hair", def:"If you can grow it, the style you keep it in can change how your jaw and face are perceived — see the facial hair task under Sharp Jawline."},
+  {term:"Overall proportions", def:"Harmony between features, not maximizing every individual one, is what actually reads as a well-put-together face."}
+];
+
+const LOOKMAX_MISTAKES = [
+  {n:"Jaw exerciser gadgets & excessive gum chewing", note:"No strong evidence they reshape the jaw, and overuse can strain the jaw joint (TMJ). Skip dedicated devices and heavy chewing sessions."},
+  {n:"Chasing 'bone reshaping' techniques", note:"Facial bone structure is fixed after growth plates close. Techniques claiming to reshape bone through pressure, exercise, or posture alone aren't supported."},
+  {n:"Extreme dieting or deliberately dehydrating yourself", note:"A temporary 'shredded' look from crash dieting or cutting water isn't sustainable and can genuinely harm your health — use the Growth tab's Cut phase instead, which is a controlled, moderate deficit."},
+  {n:"Trying to physically alter your eyelids or eyes", note:"Canthal tilt and eye shape are genetic. Work the presentation (sleep, brow grooming, reduced puffiness) instead of the anatomy."},
+  {n:"Forcing a deep voice", note:"A forced, strained low register reads as fake. Speak from a relaxed, natural register instead — see Speaking Voice below."},
+  {n:"Exaggerating a 'model walk'", note:"Heavy hip sway or an overly stylized walk looks unnatural off a runway. Aim for comfortable, controlled, and confident — not performed."},
+  {n:"Over-plucking or dramatically reshaping your eyebrows", note:"Clean and neat beats dramatically reshaped — small grooming upkeep goes further than a full redesign."}
+];
+
 const LOOKMAX = {
   jawline: {
     title:"Sharp Jawline",
@@ -1275,7 +1319,8 @@ const LOOKMAX = {
       {n:"Cut sodium & alcohol, sleep well", eff:"Fast, visible", note:"Both cause under-jaw puffiness and water retention almost overnight. You're already tracking this in Week 1 of the roadmap — it pays off here too."},
       {n:"Neck & jaw resistance training", eff:"Moderate, builds over weeks", note:"Chin tucks against light resistance, neck curls/extensions with a light plate, and controlled jaw-clench holds build the muscle under the jaw so what's already there shows more. Stop if you feel any jaw joint (TMJ) discomfort."},
       {n:"Correct tongue posture ('mewing')", eff:"Low-moderate, long-term, evidence is limited", note:"Rest your tongue on the roof of your mouth, teeth slightly apart, lips sealed — you're already doing this in Week 2 of the roadmap. Treat it as a free daily habit, not a guaranteed transformation; real structural change (if any) takes months to years and depends heavily on age."},
-      {n:"Light facial/lymphatic massage", eff:"Low, temporary/cosmetic", note:"Gentle upward strokes along the jaw and neck for 1-2 min can temporarily reduce puffiness before a photo or event — not a long-term fix on its own."}
+      {n:"Light facial/lymphatic massage", eff:"Low, temporary/cosmetic", note:"Gentle upward strokes along the jaw and neck for 1-2 min can temporarily reduce puffiness before a photo or event — not a long-term fix on its own."},
+      {n:"Style facial hair along the jaw (if you can grow it)", eff:"Moderate, immediate", note:"A well-maintained beard or stubble line can change how your jaw and face are perceived more than most single grooming choice. Keep the neckline and cheek lines clean and trimmed rather than letting it grow unshaped."}
     ]
   },
   eyes: {
@@ -1287,7 +1332,20 @@ const LOOKMAX = {
       {n:"Hydrate & cut salt before bed", eff:"Moderate, fast", note:"Reduces morning puffiness around the eyes noticeably within a day or two."},
       {n:"Groom your brows", eff:"Moderate, immediate", note:"A clean, shaped brow line (not over-plucked) opens up the whole eye area instantly — pairs with the grooming task already in your Week 2 roadmap."},
       {n:"Cold compress or ice roller in the morning", eff:"Low, temporary/cosmetic", note:"Quickly de-puffs before you need to look sharp — same principle as your daily cold-shower face rinse."},
-      {n:"Daily SPF around the eyes", eff:"Long-term, preventative", note:"Prevents the fine lines and sagging that age the eye area over years — already part of your skincare routine."}
+      {n:"Daily SPF around the eyes", eff:"Long-term, preventative", note:"Prevents the fine lines and sagging that age the eye area over years — already part of your skincare routine."},
+      {n:"Reduce screen-related eye strain", eff:"Moderate", note:"Follow the 20-20-20 rule (every 20 min, look at something 20 feet away for 20 sec) — strained, squinted eyes read as tired even when you're not."},
+      {n:"Practice a relaxed, focused expression", eff:"Moderate, immediate", note:"Instead of constantly widening your eyes to look 'awake' or 'intense,' let your resting expression stay relaxed and naturally focused — it reads as calmer and more confident."},
+      {n:"Develop confident, natural eye contact", eff:"High", note:"Practice holding relaxed eye contact a beat longer than feels automatic in everyday conversations — it's one of the most noticeable presence signals there is."}
+    ]
+  },
+  teeth: {
+    title:"Teeth & Smile",
+    intro:"Dental hygiene and a healthy, natural smile have one of the strongest effects on overall appearance — and it's almost entirely within your control.",
+    items:[
+      {n:"Brush, floss, and tongue-scrape twice daily", eff:"High, foundational", note:"The single biggest lever for a healthy smile — you're already tracking this habit in your Roadmap tasks. Keeping it consistent is what actually moves the needle."},
+      {n:"Get regular dental checkups & cleanings", eff:"High, preventative", note:"A professional cleaning removes stains and buildup you can't reach at home, and catches issues before they become visible or painful."},
+      {n:"Rinse after tea, coffee, or staining drinks", eff:"Moderate, fast", note:"A quick water rinse right after prevents a lot of surface staining before it sets in."},
+      {n:"Practice a relaxed, natural smile in the mirror", eff:"Moderate", note:"A genuine, relaxed smile reads better in person and in photos than a forced one — a few minutes of practice makes it feel less self-conscious."}
     ]
   }
 };
@@ -1312,12 +1370,15 @@ const VOICE_TECH = [
   {n:"Slow down and pause", eff:"High", note:"Cut your speaking pace by roughly 20% and let silence sit instead of filling it. Rushed speech reads as nervous; paced speech reads as in control."},
   {n:"Lower your resting pitch slightly — don't force it", eff:"Moderate", note:"Speak from a relaxed, natural low register rather than forcing a deep voice, which sounds strained and comes across as fake."},
   {n:"Record and review yourself", eff:"High, diagnostic", note:"Record a 1-minute answer to a random question and listen back for filler words, pace, and clarity — same principle as reviewing your walk."},
-  {n:"Fully articulate the ends of words", eff:"Moderate", note:"Most people trail off at the end of sentences — finishing words fully makes speech sound more deliberate and confident."}
+  {n:"Fully articulate the ends of words", eff:"Moderate", note:"Most people trail off at the end of sentences — finishing words fully makes speech sound more deliberate and confident."},
+  {n:"Pause before answering hard questions", eff:"Moderate", note:"A short beat of silence before responding reads as thoughtful and in control — rushing to fill the silence reads as nervous."},
+  {n:"Cut over-apologizing and over-qualifying", eff:"High", note:"Notice how often you soften statements with 'sorry, but...' or hedge with 'I could be wrong, but...'. Say the plain version instead — it comes across as far more confident without being blunt."}
 ];
 
 const LOOKMAX_TASK_CATS = [
   {key:"jawline", title:"Sharp Jawline", items:LOOKMAX.jawline.items},
   {key:"eyes", title:"Hunter Eyes / Eye Area", items:LOOKMAX.eyes.items},
+  {key:"teeth", title:"Teeth & Smile", items:LOOKMAX.teeth.items},
   {key:"posture", title:"Model Posture", items:POSTURE_TECH},
   {key:"walk", title:"Model Walk", items:WALK_TECH},
   {key:"voice", title:"Speaking Voice & Presence", items:VOICE_TECH}
@@ -1617,7 +1678,7 @@ function buildSearchIndex(){
     type:'Face Shape', label:`${f.shape} face shape`,
     action:()=>{ switchTab('lookmax'); }
   }));
-  [['Jawline', LOOKMAX.jawline.items], ['Eyes', LOOKMAX.eyes.items], ['Posture', POSTURE_TECH], ['Walk', WALK_TECH], ['Voice', VOICE_TECH]].forEach(([label, arr])=>{
+  [['Jawline', LOOKMAX.jawline.items], ['Eyes', LOOKMAX.eyes.items], ['Teeth', LOOKMAX.teeth.items], ['Posture', POSTURE_TECH], ['Walk', WALK_TECH], ['Voice', VOICE_TECH]].forEach(([label, arr])=>{
     arr.forEach(t=> idx.push({ type:'Lookmax', label:`${label}: ${t.n}`, action:()=>{ switchTab('lookmax'); } }));
   });
   return idx;
@@ -2128,6 +2189,14 @@ function renderLookmaxTasks(){
 }
 function renderLookmax(){
   renderLookmaxTasks();
+
+  document.getElementById('harmonyList').innerHTML = FACIAL_HARMONY.map(g=>`
+    <div class="gloss-item">
+      <div class="gloss-term">${g.term}</div>
+      <div class="gloss-def">${g.def}</div>
+    </div>
+  `).join('');
+
   document.getElementById('faceShapeList').innerHTML = FACESHAPES.map(f=>`
     <div class="shape-card">
       <div class="shape-tag">Face Shape</div>
@@ -2154,9 +2223,15 @@ function renderLookmax(){
     `<div class="calc-note" style="margin-top:-2px;">${LOOKMAX.eyes.intro}</div>` +
     LOOKMAX.eyes.items.map(techCard).join('');
 
+  document.getElementById('teethList').innerHTML =
+    `<div class="calc-note" style="margin-top:-2px;">${LOOKMAX.teeth.intro}</div>` +
+    LOOKMAX.teeth.items.map(techCard).join('');
+
   document.getElementById('postureList').innerHTML = POSTURE_TECH.map(techCard).join('');
   document.getElementById('walkList').innerHTML = WALK_TECH.map(techCard).join('');
   document.getElementById('voiceList').innerHTML = VOICE_TECH.map(techCard).join('');
+
+  document.getElementById('mistakesList').innerHTML = `<ul class="avoid-list">${LOOKMAX_MISTAKES.map(m=>`<li><b>${m.n}</b> — ${m.note}</li>`).join('')}</ul>`;
 }
 
 // ---------- RENDER: GLOSSARY ----------
