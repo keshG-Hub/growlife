@@ -421,6 +421,18 @@ main{padding:8px 18px 40px;}
   .badges-grid{ grid-template-columns:repeat(8,1fr); }
   .quick-grid{ grid-template-columns:repeat(4,1fr); }
 }
+
+/* ---------- LOOKMAX ---------- */
+.lookmax-disclaimer{font-size:11px; color:var(--faint); line-height:1.6; padding:12px 14px; background:var(--card); border-radius:10px; margin-bottom:14px;}
+.shape-card{background:var(--glass-card); backdrop-filter:blur(var(--glass-blur)) saturate(180%); -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%); border:1px solid var(--glass-border); border-radius:14px; padding:14px 16px; margin-bottom:10px; box-shadow:var(--shadow), inset 0 1px 0 var(--glass-highlight);}
+.shape-card .shape-tag{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--ember); text-transform:uppercase; letter-spacing:0.08em;}
+.shape-card h4{margin:2px 0 5px; font-size:15px;}
+.shape-card .shape-desc{font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:9px;}
+.shape-card .shape-sub{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); margin-bottom:5px;}
+.shape-card ul{margin:0; padding-left:16px;}
+.shape-card li{font-size:12.5px; color:var(--muted); line-height:1.65; margin-bottom:2px;}
+.tech-eff{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--gold); background:var(--ember-dim); padding:2px 8px; border-radius:6px; text-transform:uppercase; letter-spacing:0.04em; margin-top:3px;}
+.lm-task-eff{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--gold); margin-top:2px; text-transform:uppercase; letter-spacing:0.04em;}
 </style>
 </head>
 <body>
@@ -459,6 +471,7 @@ main{padding:8px 18px 40px;}
     <div class="tab" data-tab="fatburn">Fat Burn</div>
     <div class="tab" data-tab="growth">Growth</div>
     <div class="tab" data-tab="meals">Meals</div>
+    <div class="tab" data-tab="lookmax">Lookmax</div>
     <div class="tab" data-tab="glossary">Glossary</div>
     <div class="tab" data-tab="log">Stat Log</div>
   </div>
@@ -500,7 +513,7 @@ main{padding:8px 18px 40px;}
       <div class="quick-card" data-jump="workouts"><div class="qc-icon">🏋️</div><div class="qc-title">Workouts</div><div class="qc-sub">Today's lifts</div></div>
       <div class="quick-card" data-jump="meals"><div class="qc-icon">🍛</div><div class="qc-title">Meals</div><div class="qc-sub">Plan your plate</div></div>
       <div class="quick-card" data-jump="fatburn"><div class="qc-icon">🔥</div><div class="qc-title">Fat Burn</div><div class="qc-sub">Daily circuit</div></div>
-      <div class="quick-card" data-jump="growth"><div class="qc-icon">📈</div><div class="qc-title">Growth</div><div class="qc-sub">Macros &amp; phase</div></div>
+      <div class="quick-card" data-jump="lookmax"><div class="qc-icon">✨</div><div class="qc-title">Lookmax</div><div class="qc-sub">Face &amp; presence</div></div>
     </div>
 
     <div class="section-label">Badges</div>
@@ -594,6 +607,51 @@ main{padding:8px 18px 40px;}
     </div>
   </section>
 
+  <section class="section" id="sec-lookmax">
+    <div class="lookmax-disclaimer">Genetics set the ceiling — bone structure, canthal tilt, and jaw width are mostly fixed and no exercise or product changes them. These techniques work on what's actually changeable day to day: body fat, posture, grooming, skin, hair, and how you move and speak. That's most of what people are really reacting to when they call someone sharp, put-together, or magnetic.</div>
+
+    <div class="view-switch" id="lookmaxViewSwitch">
+      <div class="view-btn active" data-lmview="tasks">Tasks</div>
+      <div class="view-btn" data-lmview="guide">Guide</div>
+    </div>
+
+    <div id="lookmaxTasksView">
+      <div class="progress-strip"><b id="lookmaxDone">0</b>/<span id="lookmaxTotal">0</span> lookmax habits locked in</div>
+      <div class="calc-note" style="margin-top:-8px;">Tip: swipe a task right to check it off, or tap it. Tap "+ details" to see why it works before you start.</div>
+      <div id="lookmaxTaskList"></div>
+    </div>
+
+    <div id="lookmaxGuideView" style="display:none;">
+      <div class="section-label">Face Shape &amp; Matching Hairstyles</div>
+      <div id="faceShapeList"></div>
+
+      <div class="growth-block">
+        <h3>Sharp Jawline</h3>
+        <div id="jawlineList"></div>
+      </div>
+
+      <div class="growth-block">
+        <h3>Hunter Eyes / Eye Area</h3>
+        <div id="eyesList"></div>
+      </div>
+
+      <div class="growth-block">
+        <h3>Model Posture</h3>
+        <div id="postureList"></div>
+      </div>
+
+      <div class="growth-block">
+        <h3>Model Walk</h3>
+        <div id="walkList"></div>
+      </div>
+
+      <div class="growth-block">
+        <h3>Speaking Voice &amp; Presence</h3>
+        <div id="voiceList"></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="sec-glossary">
     <div class="workout-panel">
       <div id="glossaryList"></div>
@@ -645,9 +703,9 @@ main{padding:8px 18px 40px;}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11M20.5 4l-2.5 2.5M4 20.5L6.5 18M3 8l2-2 3 3-2 2zM16 21l2-2-3-3-2 2zM15 4l2-2 3 3-2 2zM3 16l2 2 3-3-2-2z"/></svg>
     <span>Train</span>
   </div>
-  <div class="bn-item" data-tab="meals">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v7c0 1 1 2 2 2s2-1 2-2V3M5 12v9M15 3c-2 0-3 2-3 5s1 5 3 5v9"/></svg>
-    <span>Meals</span>
+  <div class="bn-item" data-tab="lookmax">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg>
+    <span>Lookmax</span>
   </div>
   <div class="bn-item" data-tab="log">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
@@ -1131,6 +1189,80 @@ const GLOSSARY = [
   {term:"Maintenance calories", def:"The calorie amount at which your weight stays roughly stable — the baseline both the bulk (above it) and cut (below it) are measured from."}
 ];
 
+// ---------- LOOKMAX DATA ----------
+const FACESHAPES = [
+  {shape:"Oval", desc:"Balanced proportions — forehead, cheekbones, and jaw are close in width, and the face is slightly longer than it is wide. The most flexible shape to style; nearly everything works.",
+   hair:["Textured crop — short, textured on top, plays to already-balanced proportions","Classic side part — clean and versatile for any setting","Quiff — adds height without needing to fix any angles","Slicked-back undercut — shows off jaw and cheekbones since proportions are already even","Buzz cut — oval shapes carry a close buzz better than any other shape"]},
+  {shape:"Round", desc:"Face width and length are close, with a soft, curved jaw and cheekbones and minimal angles. Goal: add height and angularity, avoid extra width on the sides.",
+   hair:["Pompadour — height on top visually elongates the face","Faux hawk / textured spike — vertical volume counters the roundness","Angular, side-swept fringe (not straight across) — breaks up soft curves","High fade with a short, textured top — removes bulk at the sides","Side-swept undercut — draws the eye diagonally instead of straight across"]},
+  {shape:"Square", desc:"Strong, angular jaw and wide forehead, with jaw width close to forehead width and minimal taper. Already has definition — style complements it rather than fighting it.",
+   hair:["Textured crop with a fringe — softens the forehead line","Crew cut — classic, low-maintenance pairing with a strong jaw","Side part with medium length on top — balances the angularity","Comb-over fade — sharp, with enough length to avoid over-emphasizing width","Medium-length waves or curls — softens hard edges for a less severe look"]},
+  {shape:"Diamond", desc:"Widest at the cheekbones, with a narrower forehead and chin. Goal: soften the cheekbone width and add visual width at the forehead and jaw.",
+   hair:["Fringe / bangs — adds visual width to a narrow forehead","Textured crop with volume up top — balances the cheekbone width","Side part — draws the eye away from the widest point of the face","Undercut with a longer, controlled top — volume without added bulk at the sides","Light beard along the jaw (if applicable) — adds width right where the face narrows"]},
+  {shape:"Heart", desc:"Wide forehead, narrower jaw and chin, sometimes a widow's peak. Goal: reduce visual forehead width and add width near the jaw.",
+   hair:["Side-swept fringe — the single most effective fix, breaks up forehead width","Textured crop with a fringe — a lower-maintenance version of the same idea","Medium length with volume left longer near the jaw — balances a narrower chin","Low, subtle fade instead of high-and-tight — avoids exposing the full forehead","Light stubble or beard along the jawline — adds width exactly where the face narrows"]},
+  {shape:"Oblong / Rectangle", desc:"Face is noticeably longer than it is wide, with forehead, cheeks, and jaw close in width. Goal: visually shorten the face and add width, not height.",
+   hair:["Fringe / bangs — shortens the visible forehead-to-hairline distance","Side part with volume at the sides, not the top — adds width instead of length","Textured crop kept short on top — avoids adding more vertical length","Medium length with waves — horizontal texture reads as added width","Avoid tall pompadours or high spikes — extra height exaggerates the length"]}
+];
+
+const LOOKMAX = {
+  jawline: {
+    title:"Sharp Jawline",
+    intro:"Most of what reads as a 'sharp jawline' is fat distribution and posture, not bone — which is exactly why it responds well to consistent habits.",
+    items:[
+      {n:"Lower your body fat %", eff:"Highest impact", note:"Most jaw definition is hidden fat, not missing bone. Getting into a leaner range (use your Cut phase + tracking in this app) reveals more jawline than any single exercise ever will."},
+      {n:"Fix forward-head posture", eff:"High impact, fast", note:"A forward-jutting head pushes the chin down and creates a 'double chin' look even at low body fat. Do chin tucks through the day and strengthen your upper back — see Model Posture below."},
+      {n:"Cut sodium & alcohol, sleep well", eff:"Fast, visible", note:"Both cause under-jaw puffiness and water retention almost overnight. You're already tracking this in Week 1 of the roadmap — it pays off here too."},
+      {n:"Neck & jaw resistance training", eff:"Moderate, builds over weeks", note:"Chin tucks against light resistance, neck curls/extensions with a light plate, and controlled jaw-clench holds build the muscle under the jaw so what's already there shows more. Stop if you feel any jaw joint (TMJ) discomfort."},
+      {n:"Correct tongue posture ('mewing')", eff:"Low-moderate, long-term, evidence is limited", note:"Rest your tongue on the roof of your mouth, teeth slightly apart, lips sealed — you're already doing this in Week 2 of the roadmap. Treat it as a free daily habit, not a guaranteed transformation; real structural change (if any) takes months to years and depends heavily on age."},
+      {n:"Light facial/lymphatic massage", eff:"Low, temporary/cosmetic", note:"Gentle upward strokes along the jaw and neck for 1-2 min can temporarily reduce puffiness before a photo or event — not a long-term fix on its own."}
+    ]
+  },
+  eyes: {
+    title:"Hunter Eyes / Eye Area",
+    intro:"Canthal tilt (the upward angle at the outer eye corner) and eye shape are almost entirely genetic — no exercise or product changes them. The techniques below work on what's actually changeable: puffiness, framing, and the fat/skin around the eyes, which is most of what people are reacting to when they call eyes 'sharp' or 'hunter.'",
+    items:[
+      {n:"Lower body fat & reduce puffiness", eff:"Highest impact", note:"Less facial fat means more visible bone structure around the brow and eye socket, plus a naturally more defined under-eye area."},
+      {n:"Sleep 7-8 hrs, consistently", eff:"High, fast", note:"The single biggest lever for under-eye darkness, puffiness, and a 'tired' look — already a core habit in your Week 1 and Week 6 roadmap tasks."},
+      {n:"Hydrate & cut salt before bed", eff:"Moderate, fast", note:"Reduces morning puffiness around the eyes noticeably within a day or two."},
+      {n:"Groom your brows", eff:"Moderate, immediate", note:"A clean, shaped brow line (not over-plucked) opens up the whole eye area instantly — pairs with the grooming task already in your Week 2 roadmap."},
+      {n:"Cold compress or ice roller in the morning", eff:"Low, temporary/cosmetic", note:"Quickly de-puffs before you need to look sharp — same principle as your daily cold-shower face rinse."},
+      {n:"Daily SPF around the eyes", eff:"Long-term, preventative", note:"Prevents the fine lines and sagging that age the eye area over years — already part of your skincare routine."}
+    ]
+  }
+};
+
+const POSTURE_TECH = [
+  {n:"Daily wall test + reset", eff:"High, free", note:"Heels, glutes, shoulder blades, and head against a wall for 5 min — that's your reference position. Return to it mentally throughout the day."},
+  {n:"Strengthen the 'posture muscles'", eff:"High", note:"Rows, face pulls, and rear-delt work (already in your Biceps & Back day) — a weak upper back is the #1 reason shoulders round forward."},
+  {n:"Set your phone/desk at eye level", eff:"Moderate, environmental", note:"Stops 'tech neck' before it starts — raise your screen instead of dropping your head to meet it."},
+  {n:"Chin tucks, 10 reps, a few times a day", eff:"Moderate", note:"Directly corrects forward head posture and doubles as a jawline exercise."}
+];
+
+const WALK_TECH = [
+  {n:"Lead with the chest, not the head", eff:"High", note:"Walk as if a string is pulling you up from the sternum, not the chin — it fixes posture and pace at the same time."},
+  {n:"Walk on one imaginary line", eff:"High", note:"Place your feet close to a single center line with controlled, purposeful steps — for men, keep hip movement minimal; heavy hip sway reads as unnatural off a runway."},
+  {n:"Relaxed arms, minimal swing", eff:"Moderate", note:"Let your arms hang naturally with a small, controlled swing rather than stiff or overly loose."},
+  {n:"Consistent, unhurried pace", eff:"Moderate", note:"Practice walking about 10-20% slower than your natural rush-pace — controlled reads as confident, rushed reads as nervous."},
+  {n:"Practice on video", eff:"High, diagnostic", note:"Record yourself walking toward and away from the camera. You'll spot habits — foot slap, head bob, shoulder tilt — that you can't feel yourself."}
+];
+
+const VOICE_TECH = [
+  {n:"Diaphragmatic breathing", eff:"High", note:"Breathe from the stomach, not the chest, before speaking — gives a fuller, steadier voice instead of a thin or nasal one."},
+  {n:"Slow down and pause", eff:"High", note:"Cut your speaking pace by roughly 20% and let silence sit instead of filling it. Rushed speech reads as nervous; paced speech reads as in control."},
+  {n:"Lower your resting pitch slightly — don't force it", eff:"Moderate", note:"Speak from a relaxed, natural low register rather than forcing a deep voice, which sounds strained and comes across as fake."},
+  {n:"Record and review yourself", eff:"High, diagnostic", note:"Record a 1-minute answer to a random question and listen back for filler words, pace, and clarity — same principle as reviewing your walk."},
+  {n:"Fully articulate the ends of words", eff:"Moderate", note:"Most people trail off at the end of sentences — finishing words fully makes speech sound more deliberate and confident."}
+];
+
+const LOOKMAX_TASK_CATS = [
+  {key:"jawline", title:"Sharp Jawline", items:LOOKMAX.jawline.items},
+  {key:"eyes", title:"Hunter Eyes / Eye Area", items:LOOKMAX.eyes.items},
+  {key:"posture", title:"Model Posture", items:POSTURE_TECH},
+  {key:"walk", title:"Model Walk", items:WALK_TECH},
+  {key:"voice", title:"Speaking Voice & Presence", items:VOICE_TECH}
+];
+
 // ---------- TOAST ----------
 let toastTimer = null;
 function showToast(msg){
@@ -1170,6 +1302,7 @@ let profile = {name:"Nikitha Keshan Gomes", age:23, height:5.6, weight:60.5, sta
 let roadmapState = {};
 let workoutState = {};
 let fatburnState = {};
+let lookmaxState = {};
 let currentDayKey = "chest-tricep";
 let currentMealKey = "breakfast";
 let currentDpPhase = "bulk";
@@ -1201,6 +1334,10 @@ async function loadState(){
     if(f && f.value) fatburnState = JSON.parse(f.value);
   }catch(e){}
   try{
+    const lm = await window.storage.get('lookmax-state', false);
+    if(lm && lm.value) lookmaxState = JSON.parse(lm.value);
+  }catch(e){}
+  try{
     const s = await window.storage.get('streak-state', false);
     if(s && s.value) streakState = JSON.parse(s.value);
   }catch(e){}
@@ -1215,6 +1352,7 @@ async function saveProfile(){ try{ await window.storage.set('profile', JSON.stri
 async function saveRoadmap(){ try{ await window.storage.set('roadmap-state', JSON.stringify(roadmapState), false); }catch(e){} }
 async function saveWorkout(){ try{ await window.storage.set('workout-state', JSON.stringify(workoutState), false); }catch(e){} }
 async function saveFatburn(){ try{ await window.storage.set('fatburn-state', JSON.stringify(fatburnState), false); }catch(e){} }
+async function saveLookmax(){ try{ await window.storage.set('lookmax-state', JSON.stringify(lookmaxState), false); }catch(e){} }
 async function saveStreak(){ try{ await window.storage.set('streak-state', JSON.stringify(streakState), false); }catch(e){} }
 async function saveBadges(){ try{ await window.storage.set('unlocked-badges', JSON.stringify(unlockedBadges), false); }catch(e){} }
 
@@ -1271,15 +1409,18 @@ function computeBadges(){
   const totalRoadmap = Object.values(roadmapState).filter(Boolean).length;
   const totalWorkoutEx = Object.values(workoutState).reduce((s,day)=> s + Object.values(day||{}).filter(Boolean).length, 0);
   const totalFatburn = Object.values(fatburnState).filter(Boolean).length;
+  const totalLookmax = Object.values(lookmaxState).filter(Boolean).length;
+  const lookmaxMax = LOOKMAX_TASK_CATS.reduce((s,c)=> s+c.items.length, 0);
   const weekDoneCount = ROADMAP.filter((wk,wi)=> wk.tasks.every((_,ti)=> !!roadmapState[`w${wi}-${ti}`])).length;
   const dayNum = getDayNum();
   return [
-    {id:'first-step', icon:'🌱', name:'First Step', done:(totalRoadmap+totalWorkoutEx+totalFatburn)>=1},
+    {id:'first-step', icon:'🌱', name:'First Step', done:(totalRoadmap+totalWorkoutEx+totalFatburn+totalLookmax)>=1},
     {id:'week-one', icon:'🏁', name:'Week One', done: weekDoneCount>=1},
     {id:'streak-3', icon:'🔥', name:'3-Day Streak', done:(streakState.longestStreak||0)>=3},
     {id:'streak-7', icon:'🔥', name:'7-Day Streak', done:(streakState.longestStreak||0)>=7},
     {id:'halfway', icon:'⚡', name:'Halfway', done: dayNum>=28},
     {id:'iron-will', icon:'💪', name:'Iron Will', done:(totalWorkoutEx+totalFatburn)>=20},
+    {id:'glow-up', icon:'✨', name:'Glow Up', done: lookmaxMax>0 && totalLookmax>=lookmaxMax},
     {id:'all-weeks', icon:'🗺️', name:'Full Map', done: weekDoneCount>=8},
     {id:'finisher', icon:'🏆', name:'Finisher', done: dayNum>=56}
   ];
@@ -1412,6 +1553,13 @@ function buildSearchIndex(){
     type:'Glossary', label:g.term,
     action:()=>{ switchTab('glossary'); }
   }));
+  FACESHAPES.forEach(f=> idx.push({
+    type:'Face Shape', label:`${f.shape} face shape`,
+    action:()=>{ switchTab('lookmax'); }
+  }));
+  [['Jawline', LOOKMAX.jawline.items], ['Eyes', LOOKMAX.eyes.items], ['Posture', POSTURE_TECH], ['Walk', WALK_TECH], ['Voice', VOICE_TECH]].forEach(([label, arr])=>{
+    arr.forEach(t=> idx.push({ type:'Lookmax', label:`${label}: ${t.n}`, action:()=>{ switchTab('lookmax'); } }));
+  });
   return idx;
 }
 function initGlobalSearch(){
@@ -1813,6 +1961,144 @@ document.querySelector('.sex-toggle').addEventListener('click', async (e)=>{
   renderGrowth();
 });
 
+// ---------- RENDER: LOOKMAX ----------
+function renderLookmaxViewSwitch(){
+  document.querySelectorAll('#lookmaxViewSwitch .view-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('#lookmaxViewSwitch .view-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      const view = b.dataset.lmview;
+      document.getElementById('lookmaxTasksView').style.display = view==='tasks' ? '' : 'none';
+      document.getElementById('lookmaxGuideView').style.display = view==='guide' ? '' : 'none';
+    });
+  });
+}
+function renderLookmaxTasks(){
+  const list = document.getElementById('lookmaxTaskList');
+  list.innerHTML = '';
+  let doneTotal = 0, grandTotal = 0;
+  LOOKMAX_TASK_CATS.forEach((cat, ci)=>{
+    let catDone = 0;
+    cat.items.forEach((_,ii)=>{ if(lookmaxState[`${cat.key}-${ii}`]) catDone++; });
+    doneTotal += catDone;
+    grandTotal += cat.items.length;
+    const card = document.createElement('div');
+    card.className = 'week-card' + (openWeeks.has('lm-'+ci) ? ' open' : '');
+    card.dataset.cat = cat.key;
+    card.innerHTML = `
+      <div class="week-head" data-cat="${cat.key}" data-idx="${ci}">
+        <div class="week-num">${String(ci+1).padStart(2,'0')}</div>
+        <div class="week-title">
+          <div class="wk">Lookmax</div>
+          <h3>${cat.title}</h3>
+        </div>
+        <div class="week-ring ${catDone===cat.items.length?'done':''}" data-role="ring">${catDone}/${cat.items.length}</div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="week-body">
+        ${cat.items.map((item,ii)=>{
+          const key = `${cat.key}-${ii}`;
+          const isDone = !!lookmaxState[key];
+          return `
+          <div class="task ${isDone?'done':''}" data-key="${key}">
+            <div class="task-row" data-toggle-check>
+              <div class="check ${isDone?'on':''}"></div>
+              <div class="task-text">${item.n}</div>
+            </div>
+            <div class="howto-toggle" data-toggle-how>+ details</div>
+            <div class="howto">
+              <div class="lm-task-eff">${item.eff}</div>
+              <ul><li>${item.note}</li></ul>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+  document.getElementById('lookmaxDone').textContent = doneTotal;
+  document.getElementById('lookmaxTotal').textContent = grandTotal;
+
+  list.querySelectorAll('.week-head').forEach(h=>{
+    h.addEventListener('click', ()=>{
+      const idx = 'lm-' + h.dataset.idx;
+      const card = h.closest('.week-card');
+      const nowOpen = card.classList.toggle('open');
+      if(nowOpen) openWeeks.add(idx); else openWeeks.delete(idx);
+    });
+  });
+  list.querySelectorAll('[data-toggle-check]').forEach(row=>{
+    attachSwipe(row, ()=> row.click());
+    row.addEventListener('click', async ()=>{
+      const taskEl = row.closest('.task');
+      const catCard = row.closest('.week-card');
+      const key = taskEl.dataset.key;
+      const nowDone = !lookmaxState[key];
+      lookmaxState[key] = nowDone;
+      haptic(nowDone ? 12 : 8);
+
+      taskEl.classList.toggle('done', nowDone);
+      row.querySelector('.check').classList.toggle('on', nowDone);
+      const catKey = catCard.dataset.cat;
+      const cat = LOOKMAX_TASK_CATS.find(c=> c.key===catKey);
+      let catDone = 0;
+      cat.items.forEach((_,ii)=>{ if(lookmaxState[`${catKey}-${ii}`]) catDone++; });
+      const ring = catCard.querySelector('[data-role="ring"]');
+      const wasCatDone = ring.classList.contains('done');
+      ring.textContent = `${catDone}/${cat.items.length}`;
+      ring.classList.toggle('done', catDone===cat.items.length);
+      if(catDone===cat.items.length && !wasCatDone){ confettiBurst(); haptic([10,40,10]); showToast(`${cat.title} complete! ✨`); }
+
+      let newDoneTotal = 0;
+      Object.keys(lookmaxState).forEach(k=>{ if(lookmaxState[k]) newDoneTotal++; });
+      document.getElementById('lookmaxDone').textContent = newDoneTotal;
+
+      if(nowDone) touchStreak();
+      renderHome();
+      await saveLookmax();
+    });
+  });
+  list.querySelectorAll('[data-toggle-how]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const howto = btn.nextElementSibling;
+      howto.classList.toggle('show');
+      btn.textContent = howto.classList.contains('show') ? '– hide details' : '+ details';
+    });
+  });
+}
+function renderLookmax(){
+  renderLookmaxTasks();
+  document.getElementById('faceShapeList').innerHTML = FACESHAPES.map(f=>`
+    <div class="shape-card">
+      <div class="shape-tag">Face Shape</div>
+      <h4>${f.shape}</h4>
+      <div class="shape-desc">${f.desc}</div>
+      <div class="shape-sub">Best-matching hairstyles</div>
+      <ul>${f.hair.map(h=>`<li>${h}</li>`).join('')}</ul>
+    </div>
+  `).join('');
+
+  const techCard = (t)=>`
+    <div class="supp-card">
+      <div class="supp-name">${t.n}</div>
+      <div class="tech-eff">${t.eff}</div>
+      <div class="supp-note">${t.note}</div>
+    </div>
+  `;
+
+  document.getElementById('jawlineList').innerHTML =
+    `<div class="calc-note" style="margin-top:-2px;">${LOOKMAX.jawline.intro}</div>` +
+    LOOKMAX.jawline.items.map(techCard).join('');
+
+  document.getElementById('eyesList').innerHTML =
+    `<div class="calc-note" style="margin-top:-2px;">${LOOKMAX.eyes.intro}</div>` +
+    LOOKMAX.eyes.items.map(techCard).join('');
+
+  document.getElementById('postureList').innerHTML = POSTURE_TECH.map(techCard).join('');
+  document.getElementById('walkList').innerHTML = WALK_TECH.map(techCard).join('');
+  document.getElementById('voiceList').innerHTML = VOICE_TECH.map(techCard).join('');
+}
+
 // ---------- RENDER: GLOSSARY ----------
 function renderGlossary(){
   document.getElementById('glossaryList').innerHTML = GLOSSARY.map(g=>`
@@ -1904,6 +2190,8 @@ function renderAll(){
   renderMealViewSwitch();
   renderDpPhaseTabs();
   renderDayPlans();
+  renderLookmax();
+  renderLookmaxViewSwitch();
   renderGlossary();
   renderLog();
   renderHome();
