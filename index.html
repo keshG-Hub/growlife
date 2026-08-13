@@ -121,8 +121,41 @@ header{position:sticky; top:0; z-index:20; background:linear-gradient(180deg, va
 .update-btn:active{background:var(--card); transform:scale(0.99);}
 
 /* TABS */
-.tabbar{display:flex; gap:6px; padding:14px 18px 4px; overflow-x:auto; scrollbar-width:none;}
-.tabbar::-webkit-scrollbar{display:none;}
+/* NAVBAR (icon nav, replaces pill tabbar) */
+.navbar{display:flex; gap:4px; padding:14px 14px 10px; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--line); margin-bottom:2px;}
+.navbar::-webkit-scrollbar{display:none;}
+.nav-item{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:9px 13px; border-radius:14px; flex:0 0 auto; color:var(--faint); border:1px solid transparent; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+.nav-item span{font-family:'JetBrains Mono',monospace; font-size:9px; text-transform:uppercase; letter-spacing:0.03em; white-space:nowrap;}
+.nav-icon{width:20px; height:20px; display:block; transition:transform .22s cubic-bezier(.34,1.56,.64,1);}
+.nav-item:hover{color:var(--text);}
+.nav-item:hover .nav-icon{transform:translateY(-2px) scale(1.08);}
+.nav-item:active .nav-icon{transform:scale(0.85);}
+.nav-item.active{color:var(--ember); background:var(--ember-dim); border-color:var(--ember);}
+.nav-item.active .nav-icon{animation:navPop .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes navPop{0%{transform:scale(0.7) rotate(-8deg);}60%{transform:scale(1.18) rotate(4deg);}100%{transform:scale(1) rotate(0);}}
+@keyframes drawIn{to{stroke-dashoffset:0;}}
+@keyframes roofDrop{0%{transform:translateY(-4px); opacity:0;}100%{transform:translateY(0); opacity:1;}}
+@keyframes wiggleMed{0%,100%{transform:rotate(0deg);}25%{transform:rotate(-9deg);}75%{transform:rotate(9deg);}}
+@keyframes wiggleSm{0%,100%{transform:rotate(0deg);}50%{transform:rotate(7deg);}}
+@keyframes flameFlicker{0%,100%{transform:scale(1,1) skewX(0deg);}30%{transform:scale(1.06,0.95) skewX(-3deg);}60%{transform:scale(0.95,1.06) skewX(3deg);}}
+@keyframes growBar{to{transform:scaleY(1);}}
+@keyframes twinkle{0%,100%{opacity:1; transform:scale(1);}50%{opacity:0.55; transform:scale(0.9);}}
+@keyframes pageFlip{0%,100%{transform:scaleX(1);}50%{transform:scaleX(0.35);}}
+.icon-roadmap .rm-check{stroke-dasharray:20; stroke-dashoffset:20;}
+.icon-log .trend{stroke-dasharray:26; stroke-dashoffset:26;}
+.icon-growth .bar{transform-box:fill-box; transform-origin:bottom; transform:scaleY(0);}
+.icon-glossary .cover-r{transform-box:fill-box; transform-origin:left center;}
+.nav-item.active .icon-home .roof, .bn-item.active .icon-home .roof{animation:roofDrop .35s ease forwards;}
+.nav-item.active .icon-roadmap .rm-check, .bn-item.active .icon-roadmap .rm-check{animation:drawIn .5s ease forwards .15s;}
+.nav-item.active .icon-workouts .dumbbell, .bn-item.active .icon-workouts .dumbbell{transform-box:fill-box; transform-origin:center; animation:wiggleMed 1.1s ease-in-out infinite;}
+.nav-item.active .icon-fatburn .flame, .bn-item.active .icon-fatburn .flame{transform-box:fill-box; transform-origin:50% 90%; animation:flameFlicker 1s ease-in-out infinite;}
+.nav-item.active .icon-growth .bar1, .bn-item.active .icon-growth .bar1{animation:growBar .4s ease forwards .05s;}
+.nav-item.active .icon-growth .bar2, .bn-item.active .icon-growth .bar2{animation:growBar .4s ease forwards .15s;}
+.nav-item.active .icon-growth .bar3, .bn-item.active .icon-growth .bar3{animation:growBar .4s ease forwards .25s;}
+.nav-item.active .icon-meals .cutlery, .bn-item.active .icon-meals .cutlery{transform-box:fill-box; transform-origin:center; animation:wiggleSm 1s ease-in-out infinite;}
+.nav-item.active .icon-lookmax .star, .bn-item.active .icon-lookmax .star{transform-box:fill-box; transform-origin:center; animation:twinkle 1.3s ease-in-out infinite;}
+.nav-item.active .icon-glossary .cover-r{animation:pageFlip 1.2s ease-in-out infinite;}
+.nav-item.active .icon-log .trend, .bn-item.active .icon-log .trend{animation:drawIn .55s ease forwards .1s;}
 .tab{flex:0 0 auto; padding:9px 15px; border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; border:1px solid var(--glass-border); background:var(--glass-card); backdrop-filter:blur(12px) saturate(160%); -webkit-backdrop-filter:blur(12px) saturate(160%); color:var(--muted); cursor:pointer; white-space:nowrap;}
 .tab:hover{color:var(--text); border-color:var(--faint);}
 .tab.active{background:var(--ember); color:var(--on-accent); border-color:var(--ember); font-weight:700; box-shadow:0 3px 10px var(--ember-dim);}
@@ -309,7 +342,7 @@ main{padding:8px 18px 40px;}
   .statbar{grid-template-columns:repeat(4,1fr);}
   .macro-grid{grid-template-columns:repeat(3,1fr);}
   .macro-box.wide{grid-column:1/-1;}
-  .tabbar{flex-wrap:wrap; overflow:visible;}
+  .navbar{flex-wrap:wrap; overflow:visible;}
   .dl-grid{grid-template-columns:1fr 1fr;}
 }
 
@@ -320,7 +353,7 @@ main{padding:8px 18px 40px;}
   header{padding:24px 24px 12px;}
   main{padding:12px 24px 48px;}
   .display-title{font-size:40px;}
-  .tabbar{flex-wrap:wrap; overflow:visible; padding-left:0; padding-right:0;}
+  .navbar{flex-wrap:wrap; overflow:visible; padding-left:0; padding-right:0;}
   .statbar{grid-template-columns:repeat(4,1fr); gap:12px;}
   .macro-grid{grid-template-columns:repeat(3,1fr); gap:12px;}
   .macro-box.wide{grid-column:1/-1;}
@@ -331,7 +364,7 @@ main{padding:8px 18px 40px;}
 /* Legacy breakpoint kept for mid-size support */
 @media (min-width:720px){
   header, main{ max-width:680px; margin:0 auto; }
-  .tabbar{ padding-left:0; padding-right:0; flex-wrap:wrap; overflow:visible; }
+  .navbar{ padding-left:0; padding-right:0; flex-wrap:wrap; overflow:visible; }
 }
 @media (min-width:1024px){
   header, main{ max-width:840px; }
@@ -464,16 +497,43 @@ main{padding:8px 18px 40px;}
   </div>
   <button class="update-btn" id="openStatModal" aria-haspopup="dialog">+ update weight / height</button>
 
-  <div class="tabbar">
-    <div class="tab active" data-tab="home">Home</div>
-    <div class="tab" data-tab="roadmap">Roadmap</div>
-    <div class="tab" data-tab="workouts">Workouts</div>
-    <div class="tab" data-tab="fatburn">Fat Burn</div>
-    <div class="tab" data-tab="growth">Growth</div>
-    <div class="tab" data-tab="meals">Meals</div>
-    <div class="tab" data-tab="lookmax">Lookmax</div>
-    <div class="tab" data-tab="glossary">Glossary</div>
-    <div class="tab" data-tab="log">Stat Log</div>
+  <div class="navbar" id="mainNav">
+    <div class="nav-item active" data-tab="home">
+      <svg class="nav-icon icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="roof" d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="nav-item" data-tab="roadmap">
+      <svg class="nav-icon icon-roadmap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path class="rm-check" d="M7.5 12l3 3 6-6"/></svg>
+      <span>Roadmap</span>
+    </div>
+    <div class="nav-item" data-tab="workouts">
+      <svg class="nav-icon icon-workouts" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="dumbbell" d="M6.5 6.5l11 11M20.5 4l-2.5 2.5M4 20.5L6.5 18M3 8l2-2 3 3-2 2zM16 21l2-2-3-3-2 2zM15 4l2-2 3 3-2 2zM3 16l2 2 3-3-2-2z"/></svg>
+      <span>Workouts</span>
+    </div>
+    <div class="nav-item" data-tab="fatburn">
+      <svg class="nav-icon icon-fatburn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="flame" d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1.5-1-2-1-3.5 2 1 3 3.5 3 5.5a5 5 0 0 1-10 0C7 7 10 5 12 2z"/></svg>
+      <span>Fat Burn</span>
+    </div>
+    <div class="nav-item" data-tab="growth">
+      <svg class="nav-icon icon-growth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect class="bar bar1" x="6" y="14" width="3" height="5"/><rect class="bar bar2" x="11" y="10" width="3" height="9"/><rect class="bar bar3" x="16" y="6" width="3" height="13"/></svg>
+      <span>Growth</span>
+    </div>
+    <div class="nav-item" data-tab="meals">
+      <svg class="nav-icon icon-meals" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="cutlery" d="M3 3v7c0 1 1 2 2 2s2-1 2-2V3M5 12v9M15 3c-2 0-3 2-3 5s1 5 3 5v9"/></svg>
+      <span>Meals</span>
+    </div>
+    <div class="nav-item" data-tab="lookmax">
+      <svg class="nav-icon icon-lookmax" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="star" d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg>
+      <span>Lookmax</span>
+    </div>
+    <div class="nav-item" data-tab="glossary">
+      <svg class="nav-icon icon-glossary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="cover-l" d="M12 6c-2-1.5-5-2-9-1v14c4-1 7-.5 9 1"/><path class="cover-r" d="M12 6c2-1.5 5-2 9-1v14c-4-1-7-.5-9 1"/><path d="M12 6v14"/></svg>
+      <span>Glossary</span>
+    </div>
+    <div class="nav-item" data-tab="log">
+      <svg class="nav-icon icon-log" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path class="trend" d="M7 15l4-4 3 3 5-6"/></svg>
+      <span>Stat Log</span>
+    </div>
   </div>
 </header>
 
@@ -692,23 +752,23 @@ main{padding:8px 18px 40px;}
 
 <div class="bottom-nav" id="bottomNav">
   <div class="bn-item active" data-tab="home">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+    <svg class="nav-icon icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="roof" d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
     <span>Home</span>
   </div>
   <div class="bn-item" data-tab="roadmap">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <svg class="nav-icon icon-roadmap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path class="rm-check" d="M7.5 12l3 3 6-6"/></svg>
     <span>Roadmap</span>
   </div>
   <div class="bn-item" data-tab="workouts">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11M20.5 4l-2.5 2.5M4 20.5L6.5 18M3 8l2-2 3 3-2 2zM16 21l2-2-3-3-2 2zM15 4l2-2 3 3-2 2zM3 16l2 2 3-3-2-2z"/></svg>
+    <svg class="nav-icon icon-workouts" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="dumbbell" d="M6.5 6.5l11 11M20.5 4l-2.5 2.5M4 20.5L6.5 18M3 8l2-2 3 3-2 2zM16 21l2-2-3-3-2 2zM15 4l2-2 3 3-2 2zM3 16l2 2 3-3-2-2z"/></svg>
     <span>Train</span>
   </div>
   <div class="bn-item" data-tab="lookmax">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg>
+    <svg class="nav-icon icon-lookmax" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="star" d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg>
     <span>Lookmax</span>
   </div>
   <div class="bn-item" data-tab="log">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+    <svg class="nav-icon icon-log" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path class="trend" d="M7 15l4-4 3 3 5-6"/></svg>
     <span>Log</span>
   </div>
 </div>
@@ -1471,7 +1531,7 @@ function attachSwipe(el, onComplete){
 
 // ---------- TAB SWITCHING (shared by top tabs + bottom nav) ----------
 function switchTab(key){
-  document.querySelectorAll('.tabbar .tab').forEach(t=> t.classList.toggle('active', t.dataset.tab===key));
+  document.querySelectorAll('.navbar .nav-item').forEach(t=> t.classList.toggle('active', t.dataset.tab===key));
   document.querySelectorAll('.bn-item').forEach(b=> b.classList.toggle('active', b.dataset.tab===key));
   document.querySelectorAll('.section').forEach(s=> s.classList.remove('active'));
   const sec = document.getElementById('sec-'+key);
@@ -2171,7 +2231,7 @@ document.getElementById('saveStat').addEventListener('click', async ()=>{
 });
 
 // ---------- TABS ----------
-document.querySelectorAll('.tabbar .tab').forEach(tab=>{
+document.querySelectorAll('.navbar .nav-item').forEach(tab=>{
   tab.addEventListener('click', ()=>{ haptic(8); switchTab(tab.dataset.tab); });
 });
 initGlobalSearch();
