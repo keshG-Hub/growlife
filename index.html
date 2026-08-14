@@ -9,49 +9,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root{
-  --ink:#0A0A0D;
-  --panel:#16161B;
-  --card:#1D1E24;
-  --card-hover:#26272E;
-  --line:rgba(255,255,255,0.08);
-  --ember:#FF4763;
-  --ember-dim:rgba(255,71,99,0.20);
-  --gold:#FFB454;
-  --sage:#2FE0A8;
-  --sage-dim:rgba(47,224,168,0.16);
-  --danger:#FF5C5C;
-  --text:#F5F5F7;
-  --muted:#A3A3AD;
-  --faint:#5F5F68;
-  --shadow:0 10px 28px rgba(0,0,0,0.5);
+  --ink:#020408;
+  --panel:#0A0F18;
+  --card:#0F1620;
+  --card-hover:#16202E;
+  --line:rgba(120,160,255,0.12);
+  --ember:#3B82F6;
+  --ember-dim:rgba(59,130,246,0.20);
+  --gold:#38BDF8;
+  --sage:#22D3A5;
+  --sage-dim:rgba(34,211,165,0.16);
+  --danger:#FB5B6E;
+  --text:#EAF1FC;
+  --muted:#8FA0C2;
+  --faint:#4C5A75;
+  --shadow:0 10px 28px rgba(0,0,0,0.55);
   --on-accent:#FFFFFF;
-  --glass-panel:rgba(20,20,24,0.55);
-  --glass-card:rgba(29,30,36,0.48);
-  --glass-border:rgba(255,255,255,0.09);
-  --glass-highlight:rgba(255,255,255,0.06);
+  --glass-panel:rgba(8,13,22,0.55);
+  --glass-card:rgba(14,21,33,0.48);
+  --glass-border:rgba(120,160,255,0.12);
+  --glass-highlight:rgba(150,190,255,0.07);
   --glass-blur:20px;
   color-scheme:dark;
 }
 html[data-theme="light"]{
-  --ink:#FBF6F5;
+  --ink:#F1F5FC;
   --panel:#FFFFFF;
-  --card:#F5EEEC;
-  --card-hover:#EDE2DF;
-  --line:rgba(50,20,20,0.09);
-  --ember:#E23A56;
-  --ember-dim:rgba(226,58,86,0.12);
-  --gold:#E08A2E;
-  --sage:#12A57F;
-  --sage-dim:rgba(18,165,127,0.12);
-  --danger:#D6455A;
-  --text:#241C1D;
-  --muted:#6E6362;
-  --faint:#AB9F9D;
-  --shadow:0 8px 24px rgba(90,40,40,0.08);
+  --card:#E9F0FA;
+  --card-hover:#DBE6F6;
+  --line:rgba(20,50,110,0.10);
+  --ember:#1D4ED8;
+  --ember-dim:rgba(29,78,216,0.10);
+  --gold:#0284C7;
+  --sage:#0F9D74;
+  --sage-dim:rgba(15,157,116,0.12);
+  --danger:#DC3B4F;
+  --text:#0A1526;
+  --muted:#4C5C78;
+  --faint:#93A3BE;
+  --shadow:0 8px 24px rgba(20,40,90,0.10);
   --on-accent:#FFFFFF;
   --glass-panel:rgba(255,255,255,0.55);
   --glass-card:rgba(255,255,255,0.45);
-  --glass-border:rgba(255,255,255,0.6);
+  --glass-border:rgba(20,60,130,0.14);
   --glass-highlight:rgba(255,255,255,0.7);
   --glass-blur:20px;
   color-scheme:light;
@@ -97,6 +97,7 @@ a, button, .tab, .check, .task-row, .exercise, .week-head, .phase-btn, .sx, .vie
 
 /* HEADER */
 header{position:sticky; top:0; z-index:20; background:linear-gradient(180deg, var(--glass-panel) 82%, transparent); padding:calc(18px + env(safe-area-inset-top)) 18px 10px; backdrop-filter:blur(18px) saturate(160%); -webkit-backdrop-filter:blur(18px) saturate(160%);}
+header::after{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background-image:linear-gradient(90deg, var(--line) 50%, transparent 50%); background-size:6px 1px; opacity:.9; pointer-events:none;}
 .eyebrow-row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
 .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold);}
 .title-row{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-top:2px;}
@@ -115,6 +116,10 @@ header{position:sticky; top:0; z-index:20; background:linear-gradient(180deg, va
 .stat-chip .lbl{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--faint);}
 .stat-chip .val{font-size:18px; font-weight:700; margin-top:2px;}
 .stat-chip .trend{font-family:'JetBrains Mono',monospace; font-size:9.5px; margin-left:4px; font-weight:600;}
+.stat-chip-gauge{display:flex; flex-direction:column;}
+.bmi-gauge-slot{display:flex; align-items:center; gap:6px; margin-top:1px;}
+.bmi-gauge-slot .gauge-wrap{gap:0;}
+.bmi-num{font-size:15px; font-weight:700;}
 .stat-chip .trend.down{color:var(--sage);}
 .stat-chip .trend.up{color:var(--danger);}
 .update-btn{width:100%; margin-top:8px; background:transparent; border:1px dashed var(--faint); color:var(--muted); border-radius:10px; padding:10px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer;}
@@ -210,8 +215,8 @@ main{padding:8px 18px 40px;}
 .week-title{flex:1;}
 .week-title .wk{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.12em; color:var(--faint); text-transform:uppercase;}
 .week-title h3{margin:1px 0 0; font-size:16px; font-weight:700;}
-.week-ring{width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); border:2px solid var(--line); flex:0 0 auto;}
-.week-ring.done{border-color:var(--sage); color:var(--sage); background:var(--sage-dim);}
+.week-ring{display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+.week-ring .gauge-label{display:none;}
 .chev{color:var(--faint); transition:transform .2s;}
 .week-card.open .chev{transform:rotate(180deg);}
 .week-body{max-height:0; overflow:hidden; transition:max-height .3s ease;}
@@ -301,6 +306,37 @@ main{padding:8px 18px 40px;}
 .sex-toggle .sx.active{background:var(--gold); color:var(--on-accent); border-color:var(--gold); font-weight:700;}
 .sex-note{font-size:10.5px; color:var(--faint); margin:-8px 0 14px; line-height:1.5;}
 
+/* ---------- GEIST-INSPIRED: GRID GUIDES & CORNER CROSSES ---------- */
+/* A restrained nod to vercel.com/geist/grid — hairline corner brackets that mark a card
+   as sitting on the underlying grid, plus optional dashed guide rules behind hero regions. */
+.g-cross{position:relative;}
+.g-cross::before, .g-cross::after{content:""; position:absolute; width:8px; height:8px; pointer-events:none; opacity:0; transition:opacity .25s ease; z-index:2;}
+.g-cross::before{top:6px; left:6px; border-top:1px solid var(--muted); border-left:1px solid var(--muted);}
+.g-cross::after{bottom:6px; right:6px; border-bottom:1px solid var(--muted); border-right:1px solid var(--muted);}
+.g-cross:hover::before, .g-cross:hover::after, .g-cross.always-cross::before, .g-cross.always-cross.always-cross::after{opacity:0.55;}
+.g-cross.always-cross::before, .g-cross.always-cross::after{opacity:0.4;}
+
+.grid-guides{position:relative; background-image:
+    repeating-linear-gradient(90deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 25%),
+    repeating-linear-gradient(0deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 100%);
+  background-size: 100% 100%, 100% 100%;
+}
+.grid-dashed-top{position:relative;}
+.grid-dashed-top::before{content:""; position:absolute; left:0; right:0; top:0; height:1px; background-image:linear-gradient(90deg, var(--line) 50%, transparent 50%); background-size:6px 1px; opacity:.8;}
+
+/* ---------- GEIST-INSPIRED: GAUGE COMPONENT ---------- */
+/* Mirrors vercel.com/geist/gauge — circular arc, threshold-based color, centered value, adjacent label. */
+.gauge-wrap{display:inline-flex; flex-direction:column; align-items:center; gap:6px;}
+.gauge-wrap svg{display:block;}
+.gauge-track{fill:none; stroke:var(--card-hover);}
+.gauge-arc{fill:none; stroke-linecap:round; transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1), stroke .3s ease;}
+.gauge-value{font-family:'JetBrains Mono',monospace; font-weight:800; fill:var(--text);}
+.gauge-unit{font-family:'JetBrains Mono',monospace; fill:var(--faint);}
+.gauge-label{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--faint); text-align:center; white-space:nowrap;}
+.gauge-indeterminate .gauge-arc{animation:gaugeSpin 1.1s linear infinite; transform-origin:center;}
+@keyframes gaugeSpin{ to{ transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){ .gauge-indeterminate .gauge-arc{animation:none;} }
+
 .macro-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:14px;}
 .macro-box{background:var(--glass-card); backdrop-filter:blur(var(--glass-blur)) saturate(180%); -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%); border:1px solid var(--glass-border); border-radius:14px; padding:14px; box-shadow:var(--shadow), inset 0 1px 0 var(--glass-highlight);}
 .macro-box.wide{grid-column:1/-1; background:linear-gradient(135deg, var(--ember-dim), transparent); border-color:var(--ember);}
@@ -381,8 +417,8 @@ main{padding:8px 18px 40px;}
 .ph-score.mid{color:var(--gold); background:rgba(255,180,84,0.16);}
 .ph-score.low{color:var(--danger); background:rgba(255,92,92,0.14);}
 .readiness-card{display:flex; align-items:center; gap:16px; background:linear-gradient(135deg, var(--ember-dim), var(--glass-card)); border:1px solid var(--ember); border-radius:16px; padding:16px; margin-bottom:14px;}
-.readiness-ring{position:relative; width:64px; height:64px; flex:0 0 auto;}
-.readiness-ring .rr-label{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:800;}
+.readiness-ring{position:relative; flex:0 0 auto;}
+.readiness-ring .gauge-label{color:var(--gold);}
 .readiness-copy{flex:1;}
 .readiness-copy .rc-title{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold);}
 .readiness-copy .rc-text{font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.5;}
@@ -487,9 +523,9 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
 .streak-flame .flame-icon{font-size:30px; line-height:1; filter:drop-shadow(0 2px 8px var(--ember-dim));}
 .streak-flame .flame-num{font-size:26px; font-weight:800; line-height:1.1;}
 .streak-flame .flame-lbl{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;}
-.ring-progress{position:relative; width:64px; height:64px; flex:0 0 auto;}
+.ring-progress{position:relative; flex:0 0 auto;}
 .ring-progress svg circle{transition:stroke-dashoffset .5s ease;}
-.ring-progress .ring-label{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;}
+.ring-progress .gauge-label{font-size:8.5px; color:var(--gold);}
 
 .home-search{position:relative; margin-bottom:14px;}
 .home-search input{width:100%; background:var(--glass-card); backdrop-filter:blur(var(--glass-blur)) saturate(180%); -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%); border:1px solid var(--glass-border); border-radius:12px; padding:12px 14px 12px 38px; color:var(--text); font-size:14px; font-family:'Inter',sans-serif;}
@@ -663,10 +699,10 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
   <div class="dayline-ticks"><span>WK1</span><span>WK2</span><span>WK3</span><span>WK4</span><span>WK5</span><span>WK6</span><span>WK7</span><span>WK8</span></div>
 
   <div class="statbar">
-    <div class="stat-chip"><div class="lbl">Age</div><div class="val mono" id="statAge">—</div></div>
-    <div class="stat-chip"><div class="lbl">Height</div><div class="val mono" id="statHeight">—</div></div>
-    <div class="stat-chip"><div class="lbl">Weight</div><div class="val mono" id="statWeight">—</div></div>
-    <div class="stat-chip"><div class="lbl">BMI</div><div class="val mono" id="statBmi">—</div></div>
+    <div class="stat-chip g-cross"><div class="lbl">Age</div><div class="val mono" id="statAge">—</div></div>
+    <div class="stat-chip g-cross"><div class="lbl">Height</div><div class="val mono" id="statHeight">—</div></div>
+    <div class="stat-chip g-cross"><div class="lbl">Weight</div><div class="val mono" id="statWeight">—</div></div>
+    <div class="stat-chip g-cross stat-chip-gauge"><div class="lbl">BMI</div><div id="statBmi" class="bmi-gauge-slot"></div></div>
   </div>
   <button class="update-btn" id="openStatModal" aria-haspopup="dialog">+ update weight / height</button>
 
@@ -712,7 +748,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
 
 <main>
   <section class="section active" id="sec-home">
-    <div class="home-hero">
+    <div class="home-hero g-cross always-cross">
       <div class="home-hero-row">
         <div class="streak-flame">
           <div class="flame-icon">🔥</div>
@@ -733,7 +769,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
       <div class="search-results" id="searchResults"></div>
     </div>
 
-    <div class="next-task-card" id="nextTaskCard">
+    <div class="next-task-card g-cross" id="nextTaskCard">
       <div class="nt-check"></div>
       <div class="nt-body">
         <div class="nt-label" id="nextTaskLabel">Next up</div>
@@ -742,7 +778,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
       <div class="nt-arrow">→</div>
     </div>
 
-    <div class="hydration-card">
+    <div class="hydration-card g-cross">
       <div class="hydration-head">
         <div class="hy-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3.5 4.5 7 8.6 7 12.5a7 7 0 0 1-14 0c0-3.9 3.5-8 7-12.5z"/></svg>
@@ -760,10 +796,10 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     </div>
 
     <div class="quick-grid">
-      <div class="quick-card" data-jump="workouts"><div class="qc-icon">🏋️</div><div class="qc-title">Workouts</div><div class="qc-sub">Today's lifts</div></div>
-      <div class="quick-card" data-jump="meals"><div class="qc-icon">🍛</div><div class="qc-title">Meals</div><div class="qc-sub">Plan your plate</div></div>
-      <div class="quick-card" data-jump="fatburn"><div class="qc-icon">🔥</div><div class="qc-title">Fat Burn</div><div class="qc-sub">Daily circuit</div></div>
-      <div class="quick-card" data-jump="lookmax"><div class="qc-icon">✨</div><div class="qc-title">Lookmax</div><div class="qc-sub">Face &amp; presence</div></div>
+      <div class="quick-card g-cross" data-jump="workouts"><div class="qc-icon">🏋️</div><div class="qc-title">Workouts</div><div class="qc-sub">Today's lifts</div></div>
+      <div class="quick-card g-cross" data-jump="meals"><div class="qc-icon">🍛</div><div class="qc-title">Meals</div><div class="qc-sub">Plan your plate</div></div>
+      <div class="quick-card g-cross" data-jump="fatburn"><div class="qc-icon">🔥</div><div class="qc-title">Fat Burn</div><div class="qc-sub">Daily circuit</div></div>
+      <div class="quick-card g-cross" data-jump="lookmax"><div class="qc-icon">✨</div><div class="qc-title">Lookmax</div><div class="qc-sub">Face &amp; presence</div></div>
     </div>
 
     <div class="section-label">Badges</div>
@@ -780,7 +816,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
 
   <section class="section" id="sec-workouts">
     <div class="day-tabs" id="dayTabs"></div>
-    <div class="workout-panel">
+    <div class="workout-panel g-cross">
       <div class="workout-panel-head">
         <h3 id="workoutDayName">—</h3>
         <span class="reset-link" id="resetWorkout">reset session</span>
@@ -790,7 +826,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
 
     <div class="section-label" style="margin-top:16px;">Training Tools</div>
     <div class="tools-grid">
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="workout-panel-head"><h3>Rest Timer</h3></div>
         <div class="timer-display" id="workoutTimerDisplay">00:00</div>
         <div class="timer-btn-row">
@@ -800,7 +836,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
           <button type="button" class="stop-btn" id="stopWorkoutTimer">Stop</button>
         </div>
       </div>
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="workout-panel-head"><h3>Quick 1RM Calculator</h3></div>
         <div class="quick-calc-row">
           <div class="field"><label>Weight (kg)</label><input type="number" step="0.5" id="quickRmWeight" placeholder="80"></div>
@@ -813,7 +849,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
   </section>
 
   <section class="section" id="sec-fatburn">
-    <div class="workout-panel">
+    <div class="workout-panel g-cross">
       <div class="workout-panel-head">
         <h3>Daily Fat-Burn Circuit</h3>
         <span class="reset-link" id="resetFatburn">reset today</span>
@@ -838,17 +874,17 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     <div class="macro-grid" id="macroGrid"></div>
     <div class="calc-note" id="calcNote"></div>
 
-    <div class="growth-block">
+    <div class="growth-block g-cross">
       <h3 id="timingHeading">Best Times To Eat</h3>
       <div id="timingList"></div>
     </div>
 
-    <div class="growth-block">
+    <div class="growth-block g-cross">
       <h3 id="dosDontsHeading">Do's &amp; Don'ts</h3>
       <div class="dl-grid" id="dosDontsGrid"></div>
     </div>
 
-    <div class="growth-block">
+    <div class="growth-block g-cross">
       <h3 id="suppHeading">Supplements For This Phase</h3>
       <div id="suppList"></div>
       <div class="supp-disclaimer">This is general, commonly-used supplement guidance — not medical advice. Check with a doctor or dietitian before starting anything new, especially if you're on medication or have any health condition. Whole food comes first; supplements just fill gaps.</div>
@@ -872,7 +908,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
         <div class="tab" data-dpphase="cut">Cut</div>
       </div>
       <div class="subrow" id="dpPlanTabs"></div>
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="dayplan-blurb" id="dpBlurb"></div>
         <div id="dpMealList"></div>
         <div class="dp-total" id="dpTotal"></div>
@@ -895,7 +931,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     </div>
 
     <div id="lookmaxGuideView" style="display:none;">
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>What "Facial Aesthetics" Actually Means</h3>
         <div class="calc-note" style="margin-top:-2px;">The goal is harmony between features, not maximizing any single one. These are the factors people are actually reacting to — most are about presentation and health, not bone structure.</div>
         <div id="harmonyList"></div>
@@ -904,37 +940,37 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
       <div class="section-label">Face Shape &amp; Matching Hairstyles</div>
       <div id="faceShapeList"></div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Sharp Jawline</h3>
         <div id="jawlineList"></div>
       </div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Hunter Eyes / Eye Area</h3>
         <div id="eyesList"></div>
       </div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Teeth &amp; Smile</h3>
         <div id="teethList"></div>
       </div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Model Posture</h3>
         <div id="postureList"></div>
       </div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Model Walk</h3>
         <div id="walkList"></div>
       </div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Speaking Voice &amp; Presence</h3>
         <div id="voiceList"></div>
       </div>
 
-      <div class="growth-block">
+      <div class="growth-block g-cross">
         <h3>Common Mistakes To Avoid</h3>
         <div id="mistakesList"></div>
       </div>
@@ -949,7 +985,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
       <div class="tab" data-gphase="bulk">Lean Bulk</div>
       <div class="tab" data-gphase="cut">Cut</div>
     </div>
-    <div class="workout-panel">
+    <div class="workout-panel g-cross">
       <div id="glossaryList"></div>
     </div>
   </section>
@@ -963,7 +999,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     </div>
 
     <div id="progressStatsView">
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="workout-panel-head"><h3>Weight &amp; Height History</h3></div>
         <div class="chart-wrap" id="weightChartWrap"><canvas id="weightTrendChart"></canvas></div>
         <div id="logList"></div>
@@ -971,7 +1007,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     </div>
 
     <div id="progressBodyView" style="display:none;">
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="workout-panel-head"><h3>Log Body Measurements</h3></div>
         <div class="calc-note" style="margin-top:-2px;">Track body fat % and key circumference measurements alongside weight — the clearest way to see real recomposition when the scale doesn't move.</div>
         <div class="field-grid">
@@ -992,14 +1028,14 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     </div>
 
     <div id="progressRecoveryView" style="display:none;">
-      <div class="readiness-card">
+      <div class="readiness-card g-cross always-cross">
         <div class="readiness-ring" id="readinessRing"></div>
         <div class="readiness-copy">
           <div class="rc-title">Latest Readiness</div>
           <div class="rc-text" id="readinessText">Log a check-in below to see your readiness score and today's training directive.</div>
         </div>
       </div>
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="workout-panel-head"><h3>Recovery Check-In</h3></div>
         <div class="field-grid">
           <div class="field"><label>Date</label><input type="date" id="recDate"></div>
@@ -1019,7 +1055,7 @@ html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.
     </div>
 
     <div id="progressRecordsView" style="display:none;">
-      <div class="workout-panel">
+      <div class="workout-panel g-cross">
         <div class="workout-panel-head"><h3>Log a PR</h3></div>
         <div class="field-grid">
           <div class="field wide"><label>Exercise</label><input id="prExercise" list="prExerciseSuggestions" placeholder="e.g. Bench press"></div>
@@ -1820,12 +1856,67 @@ async function saveRecoveryLog(){ try{ await window.storage.set('recovery-log', 
 async function savePrLog(){ try{ await window.storage.set('pr-log', JSON.stringify(prLogState), false); }catch(e){} }
 async function saveHydration(){ try{ await window.storage.set('hydration-log', JSON.stringify(hydrationState), false); }catch(e){} }
 
+// ---------- GEIST-INSPIRED GAUGE COMPONENT ----------
+// Reusable circular gauge modeled on vercel.com/geist/gauge: threshold color scale,
+// centered value + unit, adjacent label carrying the metric name (per Geist a11y guidance).
+const GAUGE_SIZES = { tiny:{d:36,sw:4,fs:10}, small:{d:48,sw:5,fs:13}, medium:{d:64,sw:6,fs:16}, large:{d:96,sw:7,fs:22} };
+function renderRatioGauge(done, total){
+  const pct = total>0 ? (done/total)*100 : 0;
+  return renderGaugeSVG({ value:pct, max:100, size:'small', centerText:`${done}/${total}`, color: done===total && total>0 ? 'var(--sage)' : gaugeColorForValue(pct) });
+}
+function bmiColor(bmi){
+  // Custom threshold range, same idea as Geist's "custom color range" example —
+  // the breakpoints are standard WHO BMI bands, not gauge-only invented cutoffs.
+  if(bmi < 18.5) return 'var(--gold)';
+  if(bmi < 25) return 'var(--sage)';
+  if(bmi < 30) return 'var(--gold)';
+  return 'var(--ember)';
+}
+function gaugeColorForValue(value, scale){
+  // scale: 'rising' (higher = better, default) or 'falling' (higher = worse)
+  const v = Math.max(0, Math.min(100, value));
+  if(scale === 'falling'){
+    if(v < 40) return 'var(--sage)';
+    if(v < 70) return 'var(--gold)';
+    return 'var(--ember)';
+  }
+  if(v < 25) return 'var(--faint)';
+  if(v < 50) return 'var(--gold)';
+  if(v < 80) return 'var(--sage)';
+  return 'var(--ember)';
+}
+function renderGaugeSVG(opts){
+  const o = Object.assign({ value:0, max:100, size:'medium', showValue:true, unit:'', label:'', color:null, scale:'rising', indeterminate:false, arcPriority:'primary', secondaryColor:null }, opts);
+  const dims = GAUGE_SIZES[o.size] || GAUGE_SIZES.medium;
+  const r = (dims.d/2) - dims.sw/2;
+  const c = 2*Math.PI*r;
+  const pct = Math.max(0, Math.min(100, (o.value/o.max)*100));
+  const offset = c - (pct/100)*c;
+  const color = o.color || gaugeColorForValue(pct, o.scale);
+  const cx = dims.d/2, cy = dims.d/2;
+  let secondaryArc = '';
+  if(o.arcPriority === 'equal'){
+    const secColor = o.secondaryColor || 'var(--line)';
+    secondaryArc = `<circle class="gauge-track" cx="${cx}" cy="${cy}" r="${r}" stroke="${secColor}" stroke-width="${dims.sw}" stroke-dasharray="${c}" stroke-dashoffset="0" transform="rotate(-90 ${cx} ${cy})"/>`;
+  }
+  const centerLabel = o.centerText != null ? o.centerText : Math.round(o.value);
+  const valueText = o.showValue ? `<text x="${cx}" y="${cy+dims.fs*0.35}" text-anchor="middle" class="gauge-value" font-size="${o.centerText!=null? dims.fs*0.62 : dims.fs}">${centerLabel}${o.unit?`<tspan class="gauge-unit" font-size="${dims.fs*0.55}">${o.unit}</tspan>`:''}</text>` : '';
+  const svg = `
+    <svg width="${dims.d}" height="${dims.d}" viewBox="0 0 ${dims.d} ${dims.d}" role="progressbar" aria-valuemin="0" aria-valuemax="${o.max}" aria-valuenow="${o.value}" ${o.label?`aria-label="${o.label}"`:''}>
+      ${secondaryArc}
+      <circle class="gauge-track" cx="${cx}" cy="${cy}" r="${r}" stroke-width="${dims.sw}"/>
+      <circle class="gauge-arc ${o.indeterminate?'':''}" cx="${cx}" cy="${cy}" r="${r}" stroke="${color}" stroke-width="${dims.sw}" stroke-dasharray="${c}" stroke-dashoffset="${o.indeterminate? c*0.75 : offset}" transform="rotate(-90 ${cx} ${cy})"/>
+      ${valueText}
+    </svg>`;
+  return `<div class="gauge-wrap ${o.indeterminate?'gauge-indeterminate':''}">${svg}${o.label?`<div class="gauge-label">${o.label}</div>`:''}</div>`;
+}
+
 // ---------- HAPTICS & CELEBRATION ----------
 function haptic(pattern){
   try{ if(navigator.vibrate) navigator.vibrate(pattern || 10); }catch(e){}
 }
 function confettiBurst(){
-  const colors = ['#8B7BFF','#FF9466','#4FE0B0','#FFD166','#5AC8FA'];
+  const colors = ['#3B82F6','#38BDF8','#22D3A5','#60A5FA','#818CF8'];
   for(let i=0;i<26;i++){
     const p = document.createElement('div');
     p.className = 'confetti-piece';
@@ -1950,16 +2041,7 @@ function switchTab(key){
 // ---------- HOME DASHBOARD ----------
 function renderHome(){
   const dayNum = getDayNum();
-  const r = 26, c = 2*Math.PI*r;
-  const pct = dayNum/56;
-  const offset = c - pct*c;
-  document.getElementById('homeRing').innerHTML = `
-    <svg width="64" height="64" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--card-hover)" stroke-width="6"/>
-      <circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--ember)" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 32 32)"/>
-    </svg>
-    <div class="ring-label">${dayNum}/56</div>
-  `;
+  document.getElementById('homeRing').innerHTML = renderGaugeSVG({ value:dayNum, max:56, size:'medium', color:'var(--ember)', label:'Day · of 56', showValue:true });
   document.getElementById('homeStreak').textContent = streakState.currentStreak || 0;
 
   const {badges, newIds} = checkNewBadges();
@@ -2126,7 +2208,10 @@ function renderHeader(){
   document.getElementById('statWeight').innerHTML = profile.weight + " kg" + trendHtml;
   const hcm = heightToCm(profile.height);
   const bmi = profile.weight / Math.pow(hcm/100, 2);
-  document.getElementById('statBmi').textContent = bmi.toFixed(1);
+  document.getElementById('statBmi').innerHTML = renderGaugeSVG({
+    value: Math.min(bmi, 40), max:40, size:'tiny', showValue:false,
+    color: bmiColor(bmi)
+  }) + `<span class="bmi-num mono">${bmi.toFixed(1)}</span>`;
 
   const start = new Date(profile.startDate);
   const today = new Date();
@@ -2148,7 +2233,7 @@ function renderRoadmap(){
     week.tasks.forEach((_,ti)=>{ if(roadmapState[`${weekKeyBase}-${ti}`]) weekDone++; });
     doneTotal += weekDone;
     const card = document.createElement('div');
-    card.className = 'week-card bento-item' + (openWeeks.has(wi) ? ' open' : '') + (wi % 5 === 0 ? ' bento-wide' : '');
+    card.className = 'week-card bento-item g-cross' + (openWeeks.has(wi) ? ' open' : '') + (wi % 5 === 0 ? ' bento-wide' : '');
     card.dataset.week = wi;
     card.innerHTML = `
       <div class="week-head" data-week="${wi}">
@@ -2157,7 +2242,7 @@ function renderRoadmap(){
           <div class="wk">Week ${wi+1}</div>
           <h3>${week.title}</h3>
         </div>
-        <div class="week-ring ${weekDone===5?'done':''}" data-role="ring">${weekDone}/5</div>
+        <div class="week-ring ${weekDone===5?'done':''}" data-role="ring">${renderRatioGauge(weekDone,5)}</div>
         <div class="chev">▾</div>
       </div>
       <div class="week-body">
@@ -2207,7 +2292,7 @@ function renderRoadmap(){
       weekTasks.forEach((_,ti)=>{ if(roadmapState[`${weekKeyBase}-${ti}`]) weekDone++; });
       const ring = weekCard.querySelector('[data-role="ring"]');
       const wasWeekDone = ring.classList.contains('done');
-      ring.textContent = `${weekDone}/5`;
+      ring.innerHTML = renderRatioGauge(weekDone, 5);
       ring.classList.toggle('done', weekDone===5);
       if(weekDone===5 && !wasWeekDone){ confettiBurst(); haptic([10,40,10]); showToast('Week complete! 🏁'); }
       let doneTotal = 0;
@@ -2286,7 +2371,7 @@ function renderMealTabs(){
 function renderMeals(){
   const list = document.getElementById('mealList');
   list.innerHTML = MEALS[currentMealKey].map((m,i)=>`
-    <div class="meal-card">
+    <div class="meal-card g-cross">
       <div class="idx">OPTION ${i+1}</div>
       <h4>${m.n}</h4>
       <p>${m.d}</p>
@@ -2400,11 +2485,11 @@ function renderGrowth(){
   const fPct = Math.min(100, Math.round((n.fat*9/n.calories)*100));
 
   document.getElementById('macroGrid').innerHTML = `
-    <div class="macro-box wide"><div class="lbl">Daily Calories — ${cfg.label}</div><div class="num">${n.calories} <span class="unit">kcal</span></div></div>
-    <div class="macro-box"><div class="lbl">Protein</div><div class="num">${n.protein} <span class="unit">g</span></div><div class="macro-bar-track"><div class="macro-bar-fill" style="width:${pPct}%; background:var(--sage)"></div></div></div>
-    <div class="macro-box"><div class="lbl">Carbs</div><div class="num">${n.carbs} <span class="unit">g</span></div><div class="macro-bar-track"><div class="macro-bar-fill" style="width:${cPct}%; background:var(--gold)"></div></div></div>
-    <div class="macro-box"><div class="lbl">Fat</div><div class="num">${n.fat} <span class="unit">g</span></div><div class="macro-bar-track"><div class="macro-bar-fill" style="width:${fPct}%; background:var(--ember)"></div></div></div>
-    <div class="macro-box"><div class="lbl">Maintenance (TDEE)</div><div class="num">${n.tdee} <span class="unit">kcal</span></div></div>
+    <div class="macro-box wide g-cross always-cross"><div class="lbl">Daily Calories — ${cfg.label}</div><div class="num">${n.calories} <span class="unit">kcal</span></div></div>
+    <div class="macro-box g-cross"><div class="lbl">Protein</div><div class="num">${n.protein} <span class="unit">g</span></div><div class="macro-bar-track"><div class="macro-bar-fill" style="width:${pPct}%; background:var(--sage)"></div></div></div>
+    <div class="macro-box g-cross"><div class="lbl">Carbs</div><div class="num">${n.carbs} <span class="unit">g</span></div><div class="macro-bar-track"><div class="macro-bar-fill" style="width:${cPct}%; background:var(--gold)"></div></div></div>
+    <div class="macro-box g-cross"><div class="lbl">Fat</div><div class="num">${n.fat} <span class="unit">g</span></div><div class="macro-bar-track"><div class="macro-bar-fill" style="width:${fPct}%; background:var(--ember)"></div></div></div>
+    <div class="macro-box g-cross"><div class="lbl">Maintenance (TDEE)</div><div class="num">${n.tdee} <span class="unit">kcal</span></div></div>
   `;
   const activityLabels = {"1.2":"sedentary", "1.375":"light activity", "1.55":"moderate activity", "1.725":"very active"};
   document.getElementById('calcNote').textContent = `${cfg.surplusNote} Calculated from your current saved stats (BMR ${n.bmr} kcal) at "${activityLabels[String(profile.activity)] || 'moderate activity'}" — change your activity level any time in the update-stats form. Update your weight there and these numbers recalculate automatically.`;
@@ -2467,7 +2552,7 @@ function renderLookmaxTasks(){
     doneTotal += catDone;
     grandTotal += cat.items.length;
     const card = document.createElement('div');
-    card.className = 'week-card bento-item' + (openWeeks.has('lm-'+ci) ? ' open' : '');
+    card.className = 'week-card bento-item g-cross' + (openWeeks.has('lm-'+ci) ? ' open' : '');
     card.dataset.cat = cat.key;
     card.innerHTML = `
       <div class="week-head" data-cat="${cat.key}" data-idx="${ci}">
@@ -2476,7 +2561,7 @@ function renderLookmaxTasks(){
           <div class="wk">Lookmax</div>
           <h3>${cat.title}</h3>
         </div>
-        <div class="week-ring ${catDone===cat.items.length?'done':''}" data-role="ring">${catDone}/${cat.items.length}</div>
+        <div class="week-ring ${catDone===cat.items.length?'done':''}" data-role="ring">${renderRatioGauge(catDone, cat.items.length)}</div>
         <div class="chev">▾</div>
       </div>
       <div class="week-body">
@@ -2529,7 +2614,7 @@ function renderLookmaxTasks(){
       cat.items.forEach((_,ii)=>{ if(lookmaxState[`${catKey}-${ii}`]) catDone++; });
       const ring = catCard.querySelector('[data-role="ring"]');
       const wasCatDone = ring.classList.contains('done');
-      ring.textContent = `${catDone}/${cat.items.length}`;
+      ring.innerHTML = renderRatioGauge(catDone, cat.items.length);
       ring.classList.toggle('done', catDone===cat.items.length);
       if(catDone===cat.items.length && !wasCatDone){ confettiBurst(); haptic([10,40,10]); showToast(`${cat.title} complete! ✨`); }
 
@@ -2561,7 +2646,7 @@ function renderLookmax(){
   `).join('');
 
   document.getElementById('faceShapeList').innerHTML = FACESHAPES.map(f=>`
-    <div class="shape-card">
+    <div class="shape-card g-cross">
       <div class="shape-tag">Face Shape</div>
       <h4>${f.shape}</h4>
       <div class="shape-desc">${f.desc}</div>
@@ -2650,7 +2735,7 @@ function drawLineChart(canvasId, labels, data, label){
   const canvas = document.getElementById(canvasId);
   if(!canvas || typeof Chart === 'undefined') return;
   if(progressCharts[canvasId]) progressCharts[canvasId].destroy();
-  const ember = chartColor('--ember') || '#FF4763';
+  const ember = chartColor('--ember') || '#3B82F6';
   const muted = chartColor('--muted') || '#A3A3AD';
   const line = chartColor('--line') || 'rgba(255,255,255,0.08)';
   progressCharts[canvasId] = new Chart(canvas, {
@@ -2752,14 +2837,13 @@ function renderReadinessCard(){
   const ring = document.getElementById('readinessRing');
   const text = document.getElementById('readinessText');
   if(!recoveryLogState.length){
-    ring.innerHTML = `<svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--card-hover)" stroke-width="6"/></svg><div class="rr-label">—</div>`;
+    ring.innerHTML = renderGaugeSVG({ value:0, max:100, size:'medium', color:'var(--card-hover)', showValue:false, label:'Readiness' });
     text.textContent = "Log a check-in below to see your readiness score and today's training directive.";
     return;
   }
   const latest = [...recoveryLogState].sort((a,b)=> b.date.localeCompare(a.date))[0];
   const score = latest.score;
-  const r=26, c=2*Math.PI*r, offset = c - (score/100)*c;
-  ring.innerHTML = `<svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--card-hover)" stroke-width="6"/><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--ember)" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 32 32)"/></svg><div class="rr-label">${score}</div>`;
+  ring.innerHTML = renderGaugeSVG({ value:score, max:100, size:'medium', scale:'rising', label:'Readiness' });
   text.textContent = `${latest.date} — ${readinessDirective(score)}`;
 }
 function renderRecoveryLog(){
