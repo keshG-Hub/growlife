@@ -4,49 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The 56-Day System — Nikitha</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root{
-  --ink:#101012;
-  --panel:#18181B;
-  --card:#1E1F23;
-  --card-hover:#27282D;
-  --line:rgba(255,255,255,0.07);
-  --ember:#8B7BFF;
-  --ember-dim:rgba(139,123,255,0.22);
-  --gold:#FF9466;
-  --sage:#4FE0B0;
-  --sage-dim:rgba(79,224,176,0.16);
-  --danger:#FF6B6B;
-  --text:#F2F2F5;
-  --muted:#A2A2AC;
-  --faint:#616167;
+  --ink:#0A0A0D;
+  --panel:#16161B;
+  --card:#1D1E24;
+  --card-hover:#26272E;
+  --line:rgba(255,255,255,0.08);
+  --ember:#FF4763;
+  --ember-dim:rgba(255,71,99,0.20);
+  --gold:#FFB454;
+  --sage:#2FE0A8;
+  --sage-dim:rgba(47,224,168,0.16);
+  --danger:#FF5C5C;
+  --text:#F5F5F7;
+  --muted:#A3A3AD;
+  --faint:#5F5F68;
   --shadow:0 10px 28px rgba(0,0,0,0.5);
   --on-accent:#FFFFFF;
-  --glass-panel:rgba(24,24,27,0.55);
-  --glass-card:rgba(32,33,38,0.48);
+  --glass-panel:rgba(20,20,24,0.55);
+  --glass-card:rgba(29,30,36,0.48);
   --glass-border:rgba(255,255,255,0.09);
   --glass-highlight:rgba(255,255,255,0.06);
   --glass-blur:20px;
   color-scheme:dark;
 }
 html[data-theme="light"]{
-  --ink:#F5F6FC;
+  --ink:#FBF6F5;
   --panel:#FFFFFF;
-  --card:#EFF1FA;
-  --card-hover:#E3E7F9;
-  --line:rgba(40,40,90,0.09);
-  --ember:#6A5AE0;
-  --ember-dim:rgba(106,90,224,0.12);
-  --gold:#FF7A4A;
-  --sage:#1FA97C;
-  --sage-dim:rgba(31,169,124,0.12);
-  --danger:#E04B4B;
-  --text:#1F2238;
-  --muted:#666C8E;
-  --faint:#9BA0C4;
-  --shadow:0 8px 24px rgba(60,60,120,0.08);
+  --card:#F5EEEC;
+  --card-hover:#EDE2DF;
+  --line:rgba(50,20,20,0.09);
+  --ember:#E23A56;
+  --ember-dim:rgba(226,58,86,0.12);
+  --gold:#E08A2E;
+  --sage:#12A57F;
+  --sage-dim:rgba(18,165,127,0.12);
+  --danger:#D6455A;
+  --text:#241C1D;
+  --muted:#6E6362;
+  --faint:#AB9F9D;
+  --shadow:0 8px 24px rgba(90,40,40,0.08);
   --on-accent:#FFFFFF;
   --glass-panel:rgba(255,255,255,0.55);
   --glass-card:rgba(255,255,255,0.45);
@@ -138,27 +139,62 @@ header{position:sticky; top:0; z-index:20; background:linear-gradient(180deg, va
 @keyframes wiggleMed{0%,100%{transform:rotate(0deg);}25%{transform:rotate(-9deg);}75%{transform:rotate(9deg);}}
 @keyframes wiggleSm{0%,100%{transform:rotate(0deg);}50%{transform:rotate(7deg);}}
 @keyframes flameFlicker{0%,100%{transform:scale(1,1) skewX(0deg);}30%{transform:scale(1.06,0.95) skewX(-3deg);}60%{transform:scale(0.95,1.06) skewX(3deg);}}
-@keyframes growBar{to{transform:scaleY(1);}}
+@keyframes growBar{0%{transform:scaleY(0.35);}60%{transform:scaleY(1.15);}100%{transform:scaleY(1);}}
 @keyframes twinkle{0%,100%{opacity:1; transform:scale(1);}50%{opacity:0.55; transform:scale(0.9);}}
 @keyframes pageFlip{0%,100%{transform:scaleX(1);}50%{transform:scaleX(0.35);}}
-.icon-roadmap .rm-check{stroke-dasharray:20; stroke-dashoffset:20;}
-.icon-log .trend{stroke-dasharray:26; stroke-dashoffset:26;}
-.icon-growth .bar{transform-box:fill-box; transform-origin:bottom; transform:scaleY(0);}
+.icon-roadmap .rm-check{stroke-dasharray:20; stroke-dashoffset:0;}
+.icon-log .trend{stroke-dasharray:26; stroke-dashoffset:0;}
+.icon-growth .bar{transform-box:fill-box; transform-origin:bottom; transform:scaleY(1);}
 .icon-glossary .cover-r{transform-box:fill-box; transform-origin:left center;}
-.nav-item.active .icon-home .roof, .bn-item.active .icon-home .roof{animation:roofDrop .35s ease forwards;}
-.nav-item.active .icon-roadmap .rm-check, .bn-item.active .icon-roadmap .rm-check{animation:drawIn .5s ease forwards .15s;}
-.nav-item.active .icon-workouts .dumbbell, .bn-item.active .icon-workouts .dumbbell{transform-box:fill-box; transform-origin:center; animation:wiggleMed 1.1s ease-in-out infinite;}
-.nav-item.active .icon-fatburn .flame, .bn-item.active .icon-fatburn .flame{transform-box:fill-box; transform-origin:50% 90%; animation:flameFlicker 1s ease-in-out infinite;}
-.nav-item.active .icon-growth .bar1, .bn-item.active .icon-growth .bar1{animation:growBar .4s ease forwards .05s;}
-.nav-item.active .icon-growth .bar2, .bn-item.active .icon-growth .bar2{animation:growBar .4s ease forwards .15s;}
-.nav-item.active .icon-growth .bar3, .bn-item.active .icon-growth .bar3{animation:growBar .4s ease forwards .25s;}
-.nav-item.active .icon-meals .cutlery, .bn-item.active .icon-meals .cutlery{transform-box:fill-box; transform-origin:center; animation:wiggleSm 1s ease-in-out infinite;}
-.nav-item.active .icon-lookmax .star, .bn-item.active .icon-lookmax .star{transform-box:fill-box; transform-origin:center; animation:twinkle 1.3s ease-in-out infinite;}
-.nav-item.active .icon-glossary .cover-r{animation:pageFlip 1.2s ease-in-out infinite;}
-.nav-item.active .icon-log .trend, .bn-item.active .icon-log .trend{animation:drawIn .55s ease forwards .1s;}
+.nav-item.active .icon-home .roof, .bn-item.active .icon-home .roof, .sidebar-item.active .icon-home .roof{animation:roofDrop .35s ease forwards;}
+.nav-item.active .icon-roadmap .rm-check, .bn-item.active .icon-roadmap .rm-check, .sidebar-item.active .icon-roadmap .rm-check{animation:drawIn .5s ease forwards .15s;}
+.nav-item.active .icon-workouts .dumbbell, .bn-item.active .icon-workouts .dumbbell, .sidebar-item.active .icon-workouts .dumbbell{transform-box:fill-box; transform-origin:center; animation:wiggleMed 1.1s ease-in-out infinite;}
+.nav-item.active .icon-fatburn .flame, .bn-item.active .icon-fatburn .flame, .sidebar-item.active .icon-fatburn .flame{transform-box:fill-box; transform-origin:50% 90%; animation:flameFlicker 1s ease-in-out infinite;}
+.nav-item.active .icon-growth .bar1, .bn-item.active .icon-growth .bar1, .sidebar-item.active .icon-growth .bar1{animation:growBar .4s ease forwards .05s;}
+.nav-item.active .icon-growth .bar2, .bn-item.active .icon-growth .bar2, .sidebar-item.active .icon-growth .bar2{animation:growBar .4s ease forwards .15s;}
+.nav-item.active .icon-growth .bar3, .bn-item.active .icon-growth .bar3, .sidebar-item.active .icon-growth .bar3{animation:growBar .4s ease forwards .25s;}
+.nav-item.active .icon-meals .cutlery, .bn-item.active .icon-meals .cutlery, .sidebar-item.active .icon-meals .cutlery{transform-box:fill-box; transform-origin:center; animation:wiggleSm 1s ease-in-out infinite;}
+.nav-item.active .icon-lookmax .star, .bn-item.active .icon-lookmax .star, .sidebar-item.active .icon-lookmax .star{transform-box:fill-box; transform-origin:center; animation:twinkle 1.3s ease-in-out infinite;}
+.nav-item.active .icon-glossary .cover-r, .bn-item.active .icon-glossary .cover-r, .sidebar-item.active .icon-glossary .cover-r{animation:pageFlip 1.2s ease-in-out infinite;}
+.nav-item.active .icon-log .trend, .bn-item.active .icon-log .trend, .sidebar-item.active .icon-log .trend{animation:drawIn .55s ease forwards .1s;}
 .tab{flex:0 0 auto; padding:9px 15px; border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; border:1px solid var(--glass-border); background:var(--glass-card); backdrop-filter:blur(12px) saturate(160%); -webkit-backdrop-filter:blur(12px) saturate(160%); color:var(--muted); cursor:pointer; white-space:nowrap;}
 .tab:hover{color:var(--text); border-color:var(--faint);}
 .tab.active{background:var(--ember); color:var(--on-accent); border-color:var(--ember); font-weight:700; box-shadow:0 3px 10px var(--ember-dim);}
+
+/* ---------- SIDEBAR NAV ---------- */
+.sidebar{position:fixed; left:0; top:0; bottom:0; width:84px; z-index:40; display:flex; flex-direction:column; align-items:center; gap:2px; padding:calc(16px + env(safe-area-inset-top)) 0 16px; background:var(--glass-panel); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border-right:1px solid var(--glass-border); overflow-y:auto;}
+.sidebar-brand{width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg, var(--ember), var(--gold)); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:17px; color:#fff; letter-spacing:0.02em; margin-bottom:14px; flex:0 0 auto; box-shadow:0 4px 14px var(--ember-dim);}
+.sidebar-item{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; width:64px; padding:10px 4px; border-radius:14px; color:var(--faint); border:1px solid transparent; background:transparent; cursor:pointer; flex:0 0 auto; -webkit-tap-highlight-color:transparent;}
+.sidebar-item span{font-family:'JetBrains Mono',monospace; font-size:8.5px; text-transform:uppercase; letter-spacing:0.02em; white-space:nowrap;}
+.sidebar-item .nav-icon{width:21px; height:21px;}
+.sidebar-item:hover{color:var(--text); background:var(--card-hover);}
+.sidebar-item:hover .nav-icon{transform:translateY(-2px) scale(1.08);}
+.sidebar-item.active{color:var(--ember); background:var(--ember-dim); border-color:var(--ember);}
+.sidebar-item.active .nav-icon{animation:navPop .4s cubic-bezier(.34,1.56,.64,1);}
+.sidebar-item:active .nav-icon{transform:scale(0.85);}
+.navbar{display:none !important;}
+@media (max-width:1023px){
+  .sidebar{display:none;}
+}
+@media (min-width:1024px){
+  header{margin-left:84px;}
+  main{margin-left:84px;}
+  .bottom-nav{display:none;}
+  body{padding-bottom:0;}
+}
+
+/* ---------- BENTO GRID ---------- */
+.bento-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:12px; align-items:start;}
+.bento-grid > *{margin-bottom:0 !important;}
+.bento-item.bento-wide{grid-column:1/-1;}
+@media (max-width:640px){
+  .bento-grid{grid-template-columns:1fr;}
+  .bento-item.bento-wide{grid-column:auto;}
+}
+.bento-flow{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; align-items:start;}
+@media (max-width:560px){
+  .bento-flow{grid-template-columns:1fr;}
+}
 
 main{padding:8px 18px 40px;}
 .section{display:none;}
@@ -298,7 +334,12 @@ main{padding:8px 18px 40px;}
 /* GLOSSARY */
 .gloss-item{border-top:1px solid var(--line); padding:12px 0;}
 .gloss-item:first-child{border-top:none;}
+.gloss-term-row{display:flex; align-items:flex-start; justify-content:space-between; gap:8px; flex-wrap:wrap;}
 .gloss-term{font-size:14px; font-weight:700; color:var(--gold);}
+.gloss-pill{flex:0 0 auto; font-family:'JetBrains Mono',monospace; font-size:8.5px; text-transform:uppercase; letter-spacing:0.05em; padding:3px 8px; border-radius:999px; font-weight:700; white-space:nowrap; margin-top:1px;}
+.gloss-pill.gp-both{color:var(--ember); background:var(--ember-dim);}
+.gloss-pill.gp-bulk{color:var(--gold); background:rgba(255,148,102,0.16);}
+.gloss-pill.gp-cut{color:var(--sage); background:var(--sage-dim);}
 .gloss-def{font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.55;}
 
 /* MEAL VIEW / DAY PLANS */
@@ -323,6 +364,59 @@ main{padding:8px 18px 40px;}
 /* PERF: skip layout/paint work for offscreen inactive sections */
 .section:not(.active){ content-visibility:hidden; }
 
+/* ---------- FIELD GRID (compact inline forms, reused across Progress) ---------- */
+.field-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:14px;}
+.field-grid .field{margin-bottom:0;}
+.field-grid .field.wide{grid-column:1/-1;}
+
+/* ---------- PROGRESS HUB (Weight/Body/Recovery/Records) ---------- */
+.chart-wrap{background:var(--card); border-radius:12px; padding:12px 10px 6px; margin-bottom:14px; border:1px solid var(--line);}
+.chart-wrap canvas{max-height:180px;}
+.progress-history-row{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; padding:10px 4px; border-bottom:1px solid var(--line); font-size:12.5px;}
+.progress-history-row:last-child{border-bottom:none;}
+.progress-history-row .ph-date{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--faint); white-space:nowrap;}
+.progress-history-row .ph-main{color:var(--text); line-height:1.5;}
+.progress-history-row .ph-score{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;}
+.ph-score.good{color:var(--sage); background:var(--sage-dim);}
+.ph-score.mid{color:var(--gold); background:rgba(255,180,84,0.16);}
+.ph-score.low{color:var(--danger); background:rgba(255,92,92,0.14);}
+.readiness-card{display:flex; align-items:center; gap:16px; background:linear-gradient(135deg, var(--ember-dim), var(--glass-card)); border:1px solid var(--ember); border-radius:16px; padding:16px; margin-bottom:14px;}
+.readiness-ring{position:relative; width:64px; height:64px; flex:0 0 auto;}
+.readiness-ring .rr-label{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:800;}
+.readiness-copy{flex:1;}
+.readiness-copy .rc-title{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold);}
+.readiness-copy .rc-text{font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.5;}
+.pr-delta{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700;}
+.pr-delta.up{color:var(--sage);}
+.pr-delta.flat{color:var(--faint);}
+.quick-calc-row{display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;}
+.quick-calc-row .field{flex:1; min-width:100px; margin-bottom:0;}
+.quick-calc-result{flex:0 0 auto; text-align:right; min-width:100px;}
+.quick-calc-result .qc-num{font-size:22px; font-weight:800; color:var(--ember);}
+.quick-calc-result .qc-lbl{font-family:'JetBrains Mono',monospace; font-size:9px; text-transform:uppercase; color:var(--faint); letter-spacing:0.06em;}
+
+/* ---------- WORKOUT TOOLS (rest timer + 1RM calc) ---------- */
+.tools-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:12px;}
+.timer-display{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:800; color:var(--ember); text-align:center; margin:6px 0 12px; letter-spacing:0.02em;}
+.timer-btn-row{display:flex; gap:8px;}
+.timer-btn-row button{flex:1; background:var(--card); border:1px solid var(--line); color:var(--text); border-radius:10px; padding:10px; font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer;}
+.timer-btn-row button:hover{border-color:var(--ember); color:var(--ember);}
+.timer-btn-row button.stop-btn{border-color:rgba(255,92,92,0.4); color:var(--danger);}
+
+/* ---------- HYDRATION WIDGET (Home) ---------- */
+.hydration-card{background:var(--glass-card); backdrop-filter:blur(var(--glass-blur)) saturate(180%); -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%); border:1px solid var(--glass-border); border-radius:16px; padding:14px 16px; margin-bottom:14px; box-shadow:var(--shadow), inset 0 1px 0 var(--glass-highlight);}
+.hydration-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;}
+.hydration-head .hy-title{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700;}
+.hydration-head .hy-title svg{width:16px; height:16px; color:#5AC8FA; flex:0 0 auto;}
+.hydration-head .hy-amt{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted);}
+.hydration-bar-track{height:8px; border-radius:999px; background:var(--card-hover); overflow:hidden; margin-bottom:10px;}
+.hydration-bar-fill{height:100%; border-radius:999px; background:linear-gradient(90deg, #34A6E8, #5AC8FA); transition:width .4s ease;}
+.hydration-btn-row{display:flex; gap:8px; flex-wrap:wrap;}
+.hydration-btn-row button{flex:1; min-width:70px; background:rgba(90,200,250,0.12); border:1px solid rgba(90,200,250,0.3); color:#5AC8FA; border-radius:10px; padding:9px; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700; cursor:pointer;}
+html[data-theme="light"] .hydration-btn-row button{background:rgba(52,166,232,0.10); color:#1E7EB8;}
+.hydration-btn-row button:hover{filter:brightness(1.1);}
+.hydration-btn-row button.reset-mini{background:transparent; border:1px dashed var(--faint); color:var(--faint); flex:0 0 auto; min-width:44px;}
+
 /* ---------- RESPONSIVE ---------- */
 
 /* Small phones */
@@ -346,29 +440,42 @@ main{padding:8px 18px 40px;}
   .dl-grid{grid-template-columns:1fr 1fr;}
 }
 
-/* Laptops / desktops */
+/* Laptops / desktops — content sits beside the fixed sidebar and fills the remaining width */
 @media (min-width:1024px){
   body{padding-bottom:60px;}
-  header, main{ max-width:840px; margin:0 auto; }
-  header{padding:24px 24px 12px;}
-  main{padding:12px 24px 48px;}
+  header, main{ max-width:1180px; margin-left:84px; margin-right:auto; width:calc(100% - 84px); }
+  header{padding:24px 32px 12px;}
+  main{padding:12px 32px 56px;}
   .display-title{font-size:40px;}
-  .navbar{flex-wrap:wrap; overflow:visible; padding-left:0; padding-right:0;}
   .statbar{grid-template-columns:repeat(4,1fr); gap:12px;}
   .macro-grid{grid-template-columns:repeat(3,1fr); gap:12px;}
   .macro-box.wide{grid-column:1/-1;}
   .week-card, .workout-panel, .meal-card, .growth-block{border-radius:18px;}
   .day-tabs, .meal-tabs{flex-wrap:wrap; overflow:visible;}
 }
+@media (min-width:1440px){
+  header, main{ max-width:1320px; }
+}
 
-/* Legacy breakpoint kept for mid-size support */
-@media (min-width:720px){
-  header, main{ max-width:680px; margin:0 auto; }
-  .navbar{ padding-left:0; padding-right:0; flex-wrap:wrap; overflow:visible; }
+/* ---------- BENTO CONTAINER WIRING ---------- */
+#roadmapList, #lookmaxTaskList{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px; align-items:start;}
+#roadmapList .week-card, #lookmaxTaskList .week-card{margin-bottom:0;}
+@media (max-width:640px){
+  #roadmapList, #lookmaxTaskList{grid-template-columns:1fr;}
 }
-@media (min-width:1024px){
-  header, main{ max-width:840px; }
-}
+#mealList{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px;}
+#mealList .meal-card{margin-bottom:0;}
+#suppList{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px;}
+#suppList .supp-card{border-top:none; background:var(--card); border-radius:10px; padding:11px 12px;}
+#glossaryList{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px;}
+#glossaryList .gloss-item{border-top:none; background:var(--card); border-radius:10px; padding:11px 12px;}
+#harmonyList{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px;}
+#harmonyList .gloss-item{border-top:none; background:var(--card); border-radius:10px; padding:11px 12px;}
+#faceShapeList{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:10px;}
+#faceShapeList .shape-card{margin-bottom:0;}
+#jawlineList, #eyesList, #teethList, #postureList, #walkList, #voiceList{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px;}
+#jawlineList .calc-note, #eyesList .calc-note, #teethList .calc-note{grid-column:1/-1;}
+#jawlineList .supp-card, #eyesList .supp-card, #teethList .supp-card, #postureList .supp-card, #walkList .supp-card, #voiceList .supp-card{border-top:none; background:var(--card); border-radius:10px; padding:11px 12px;}
 
 /* ---------- SECTION LABEL ---------- */
 .section-label{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--faint); margin:4px 0 10px;}
@@ -413,11 +520,34 @@ main{padding:8px 18px 40px;}
 .next-task-card .nt-arrow{color:var(--faint); flex:0 0 auto;}
 
 .badges-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:8px;}
-.badge{background:var(--glass-card); backdrop-filter:blur(var(--glass-blur)) saturate(180%); -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%); border:1px solid var(--glass-border); border-radius:14px; padding:10px 6px; text-align:center; opacity:0.35; filter:grayscale(1);}
-.badge.unlocked{opacity:1; filter:none; border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 4px 14px var(--ember-dim);}
-.badge .b-icon{font-size:20px;}
-.badge .b-name{font-size:8.5px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.02em; color:var(--muted); margin-top:5px; line-height:1.3;}
+.badge{background:var(--glass-card); backdrop-filter:blur(var(--glass-blur)) saturate(180%); -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%); border:1px solid var(--glass-border); border-radius:14px; padding:12px 6px 10px; text-align:center; opacity:0.4; transition:opacity .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;}
+.badge .b-icon{width:26px; height:26px; margin:0 auto; color:var(--faint); transition:color .4s ease;}
+.badge .b-icon svg{width:100%; height:100%; display:block;}
+.badge.unlocked{opacity:1; border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 4px 14px var(--ember-dim);}
+.badge.unlocked .b-icon{color:var(--gold);}
+.badge .b-name{font-size:8.5px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.02em; color:var(--muted); margin-top:6px; line-height:1.3;}
 .badge.unlocked .b-name{color:var(--text);}
+.badge:hover{transform:translateY(-2px);}
+/* per-badge idle animation once unlocked */
+.badge.unlocked .bi-flicker{transform-box:fill-box; transform-origin:50% 90%; animation:flameFlicker 1.1s ease-in-out infinite;}
+.badge.unlocked .bi-flicker2{transform-box:fill-box; transform-origin:50% 90%; animation:flameFlicker 1.3s ease-in-out infinite .1s;}
+.badge.unlocked .bi-star1{transform-box:fill-box; transform-origin:center; animation:twinkle 1.6s ease-in-out infinite;}
+.badge.unlocked .bi-zap{transform-box:fill-box; transform-origin:center; animation:twinkle 1.4s ease-in-out infinite;}
+.badge.unlocked .bi-cup{transform-box:fill-box; transform-origin:center; animation:navPop 2.2s ease-in-out infinite;}
+.badge.unlocked .bi-leaf-l, .badge.unlocked .bi-leaf-r{transform-box:fill-box; transform-origin:bottom; animation:growBar .5s ease forwards;}
+/* one-shot unlock celebration */
+.badge.just-unlocked{animation:badgeUnlock .7s cubic-bezier(.34,1.56,.64,1);}
+.badge.just-unlocked .b-icon{animation:badgeIconPop .7s cubic-bezier(.34,1.56,.64,1);}
+@keyframes badgeUnlock{
+  0%{ box-shadow:0 0 0 0 var(--ember-dim); }
+  40%{ transform:scale(1.12); box-shadow:0 0 0 10px transparent; }
+  100%{ transform:scale(1); }
+}
+@keyframes badgeIconPop{
+  0%{ transform:scale(0.6) rotate(-10deg); }
+  55%{ transform:scale(1.25) rotate(6deg); }
+  100%{ transform:scale(1) rotate(0); }
+}
 
 /* ---------- BOTTOM NAV ---------- */
 .bottom-nav{position:fixed; left:0; right:0; bottom:0; z-index:30; display:flex; justify-content:space-around; align-items:center; background:var(--glass-panel); border-top:1px solid var(--glass-border); padding:7px 4px calc(7px + env(safe-area-inset-bottom)); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); box-shadow:0 -4px 24px rgba(0,0,0,0.15);}
@@ -472,6 +602,46 @@ main{padding:8px 18px 40px;}
 </style>
 </head>
 <body>
+
+<nav class="sidebar" id="sidebarNav" aria-label="Main navigation">
+  <div class="sidebar-brand">56</div>
+  <div class="sidebar-item active" data-tab="home">
+    <svg class="nav-icon icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="roof" d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+    <span>Home</span>
+  </div>
+  <div class="sidebar-item" data-tab="roadmap">
+    <svg class="nav-icon icon-roadmap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path class="rm-check" d="M7.5 12l3 3 6-6"/></svg>
+    <span>Roadmap</span>
+  </div>
+  <div class="sidebar-item" data-tab="workouts">
+    <svg class="nav-icon icon-workouts" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="dumbbell" d="M6.5 6.5l11 11M20.5 4l-2.5 2.5M4 20.5L6.5 18M3 8l2-2 3 3-2 2zM16 21l2-2-3-3-2 2zM15 4l2-2 3 3-2 2zM3 16l2 2 3-3-2-2z"/></svg>
+    <span>Workouts</span>
+  </div>
+  <div class="sidebar-item" data-tab="fatburn">
+    <svg class="nav-icon icon-fatburn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="flame" d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1.5-1-2-1-3.5 2 1 3 3.5 3 5.5a5 5 0 0 1-10 0C7 7 10 5 12 2z"/></svg>
+    <span>Fat Burn</span>
+  </div>
+  <div class="sidebar-item" data-tab="growth">
+    <svg class="nav-icon icon-growth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect class="bar bar1" x="6" y="14" width="3" height="5"/><rect class="bar bar2" x="11" y="10" width="3" height="9"/><rect class="bar bar3" x="16" y="6" width="3" height="13"/></svg>
+    <span>Growth</span>
+  </div>
+  <div class="sidebar-item" data-tab="meals">
+    <svg class="nav-icon icon-meals" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="cutlery" d="M3 3v7c0 1 1 2 2 2s2-1 2-2V3M5 12v9M15 3c-2 0-3 2-3 5s1 5 3 5v9"/></svg>
+    <span>Meals</span>
+  </div>
+  <div class="sidebar-item" data-tab="lookmax">
+    <svg class="nav-icon icon-lookmax" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="star" d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg>
+    <span>Lookmax</span>
+  </div>
+  <div class="sidebar-item" data-tab="glossary">
+    <svg class="nav-icon icon-glossary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="cover-l" d="M12 6c-2-1.5-5-2-9-1v14c4-1 7-.5 9 1"/><path class="cover-r" d="M12 6c2-1.5 5-2 9-1v14c-4-1-7-.5-9 1"/><path d="M12 6v14"/></svg>
+    <span>Glossary</span>
+  </div>
+  <div class="sidebar-item" data-tab="log">
+    <svg class="nav-icon icon-log" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path class="trend" d="M7 15l4-4 3 3 5-6"/></svg>
+    <span>Progress</span>
+  </div>
+</nav>
 
 <header>
   <div class="eyebrow-row">
@@ -535,7 +705,7 @@ main{padding:8px 18px 40px;}
     </div>
     <div class="nav-item" data-tab="log">
       <svg class="nav-icon icon-log" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path class="trend" d="M7 15l4-4 3 3 5-6"/></svg>
-      <span>Stat Log</span>
+      <span>Progress</span>
     </div>
   </div>
 </header>
@@ -572,6 +742,23 @@ main{padding:8px 18px 40px;}
       <div class="nt-arrow">→</div>
     </div>
 
+    <div class="hydration-card">
+      <div class="hydration-head">
+        <div class="hy-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3.5 4.5 7 8.6 7 12.5a7 7 0 0 1-14 0c0-3.9 3.5-8 7-12.5z"/></svg>
+          Hydration
+        </div>
+        <div class="hy-amt" id="hydrationAmt">0 / 3000 ml</div>
+      </div>
+      <div class="hydration-bar-track"><div class="hydration-bar-fill" id="hydrationBarFill" style="width:0%"></div></div>
+      <div class="hydration-btn-row">
+        <button type="button" data-add-water="250">+250ml</button>
+        <button type="button" data-add-water="500">+500ml</button>
+        <button type="button" data-add-water="1000">+1L</button>
+        <button type="button" class="reset-mini" id="resetHydration" title="Reset today">↺</button>
+      </div>
+    </div>
+
     <div class="quick-grid">
       <div class="quick-card" data-jump="workouts"><div class="qc-icon">🏋️</div><div class="qc-title">Workouts</div><div class="qc-sub">Today's lifts</div></div>
       <div class="quick-card" data-jump="meals"><div class="qc-icon">🍛</div><div class="qc-title">Meals</div><div class="qc-sub">Plan your plate</div></div>
@@ -599,6 +786,29 @@ main{padding:8px 18px 40px;}
         <span class="reset-link" id="resetWorkout">reset session</span>
       </div>
       <div id="exerciseList"></div>
+    </div>
+
+    <div class="section-label" style="margin-top:16px;">Training Tools</div>
+    <div class="tools-grid">
+      <div class="workout-panel">
+        <div class="workout-panel-head"><h3>Rest Timer</h3></div>
+        <div class="timer-display" id="workoutTimerDisplay">00:00</div>
+        <div class="timer-btn-row">
+          <button type="button" data-timer="60">60s</button>
+          <button type="button" data-timer="90">90s</button>
+          <button type="button" data-timer="180">180s</button>
+          <button type="button" class="stop-btn" id="stopWorkoutTimer">Stop</button>
+        </div>
+      </div>
+      <div class="workout-panel">
+        <div class="workout-panel-head"><h3>Quick 1RM Calculator</h3></div>
+        <div class="quick-calc-row">
+          <div class="field"><label>Weight (kg)</label><input type="number" step="0.5" id="quickRmWeight" placeholder="80"></div>
+          <div class="field"><label>Reps</label><input type="number" id="quickRmReps" placeholder="8"></div>
+          <div class="quick-calc-result"><div class="qc-num" id="quickRmResult">0.0</div><div class="qc-lbl">est. 1RM (kg)</div></div>
+        </div>
+        <div class="calc-note" style="margin:10px 0 0;">Epley formula: weight × (1 + reps ÷ 30). Log real PRs in Progress → Records to track this over time.</div>
+      </div>
     </div>
   </section>
 
@@ -732,15 +942,102 @@ main{padding:8px 18px 40px;}
   </section>
 
   <section class="section" id="sec-glossary">
+    <div class="progress-strip"><b id="glossaryCount">0</b> terms · filtered by phase impact</div>
+    <div class="subrow" id="glossaryPhaseTabs">
+      <div class="tab active" data-gphase="all">All</div>
+      <div class="tab" data-gphase="both">Foundational</div>
+      <div class="tab" data-gphase="bulk">Lean Bulk</div>
+      <div class="tab" data-gphase="cut">Cut</div>
+    </div>
     <div class="workout-panel">
       <div id="glossaryList"></div>
     </div>
   </section>
 
   <section class="section" id="sec-log">
-    <div class="workout-panel">
-      <div class="workout-panel-head"><h3>Weight &amp; Height History</h3></div>
-      <div id="logList"></div>
+    <div class="view-switch" id="progressViewSwitch">
+      <div class="view-btn active" data-pview="stats">Weight</div>
+      <div class="view-btn" data-pview="body">Body</div>
+      <div class="view-btn" data-pview="recovery">Recovery</div>
+      <div class="view-btn" data-pview="records">Records</div>
+    </div>
+
+    <div id="progressStatsView">
+      <div class="workout-panel">
+        <div class="workout-panel-head"><h3>Weight &amp; Height History</h3></div>
+        <div class="chart-wrap" id="weightChartWrap"><canvas id="weightTrendChart"></canvas></div>
+        <div id="logList"></div>
+      </div>
+    </div>
+
+    <div id="progressBodyView" style="display:none;">
+      <div class="workout-panel">
+        <div class="workout-panel-head"><h3>Log Body Measurements</h3></div>
+        <div class="calc-note" style="margin-top:-2px;">Track body fat % and key circumference measurements alongside weight — the clearest way to see real recomposition when the scale doesn't move.</div>
+        <div class="field-grid">
+          <div class="field"><label>Date</label><input type="date" id="bodyDate"></div>
+          <div class="field"><label>Body Fat %</label><input type="number" step="0.1" id="bodyFat" placeholder="18.5"></div>
+          <div class="field"><label>Chest (cm)</label><input type="number" step="0.1" id="bodyChest"></div>
+          <div class="field"><label>Waist (cm)</label><input type="number" step="0.1" id="bodyWaist"></div>
+          <div class="field"><label>Arms (cm)</label><input type="number" step="0.1" id="bodyArms"></div>
+          <div class="field"><label>Thighs (cm)</label><input type="number" step="0.1" id="bodyThighs"></div>
+          <div class="field"><label>Shoulders (cm)</label><input type="number" step="0.1" id="bodyShoulders"></div>
+        </div>
+        <button class="update-btn" id="saveBodyLog" style="border-style:solid; color:var(--ember); border-color:var(--ember);">+ log measurements</button>
+      </div>
+      <div class="workout-panel" style="margin-top:12px;">
+        <div class="workout-panel-head"><h3>Measurement History</h3></div>
+        <div id="bodyLogList"></div>
+      </div>
+    </div>
+
+    <div id="progressRecoveryView" style="display:none;">
+      <div class="readiness-card">
+        <div class="readiness-ring" id="readinessRing"></div>
+        <div class="readiness-copy">
+          <div class="rc-title">Latest Readiness</div>
+          <div class="rc-text" id="readinessText">Log a check-in below to see your readiness score and today's training directive.</div>
+        </div>
+      </div>
+      <div class="workout-panel">
+        <div class="workout-panel-head"><h3>Recovery Check-In</h3></div>
+        <div class="field-grid">
+          <div class="field"><label>Date</label><input type="date" id="recDate"></div>
+          <div class="field"><label>Sleep (hrs)</label><input type="number" step="0.1" id="recSleep" placeholder="7.5"></div>
+          <div class="field"><label>Sleep Quality (1-10)</label><input type="number" min="1" max="10" id="recQuality"></div>
+          <div class="field"><label>Soreness (1-10)</label><input type="number" min="1" max="10" id="recSoreness"></div>
+          <div class="field"><label>Stress (1-10)</label><input type="number" min="1" max="10" id="recStress"></div>
+          <div class="field"><label>Energy (1-10)</label><input type="number" min="1" max="10" id="recEnergy"></div>
+          <div class="field"><label>Resting HR (bpm)</label><input type="number" id="recHr" placeholder="optional"></div>
+        </div>
+        <button class="update-btn" id="saveRecoveryLog" style="border-style:solid; color:var(--ember); border-color:var(--ember);">+ save check-in</button>
+      </div>
+      <div class="workout-panel" style="margin-top:12px;">
+        <div class="workout-panel-head"><h3>Recovery History</h3></div>
+        <div id="recoveryLogList"></div>
+      </div>
+    </div>
+
+    <div id="progressRecordsView" style="display:none;">
+      <div class="workout-panel">
+        <div class="workout-panel-head"><h3>Log a PR</h3></div>
+        <div class="field-grid">
+          <div class="field wide"><label>Exercise</label><input id="prExercise" list="prExerciseSuggestions" placeholder="e.g. Bench press"></div>
+          <div class="field"><label>Date</label><input type="date" id="prDate"></div>
+          <div class="field"><label>Weight (kg)</label><input type="number" step="0.5" id="prWeight"></div>
+          <div class="field"><label>Reps</label><input type="number" id="prReps"></div>
+        </div>
+        <datalist id="prExerciseSuggestions"></datalist>
+        <button class="update-btn" id="savePrLog" style="border-style:solid; color:var(--ember); border-color:var(--ember);">+ log PR</button>
+      </div>
+      <div class="workout-panel" style="margin-top:12px;">
+        <div class="workout-panel-head">
+          <h3>1RM Trend</h3>
+          <select id="prExerciseFilter" style="width:auto; padding:8px 10px; font-size:12px;"></select>
+        </div>
+        <div class="chart-wrap" id="prChartWrap"><canvas id="prTrendChart"></canvas></div>
+        <div id="prLogList"></div>
+      </div>
     </div>
   </section>
 </main>
@@ -788,7 +1085,7 @@ main{padding:8px 18px 40px;}
   </div>
   <div class="bn-item" data-tab="log">
     <svg class="nav-icon icon-log" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path class="trend" d="M7 15l4-4 3 3 5-6"/></svg>
-    <span>Log</span>
+    <span>Progress</span>
   </div>
 </div>
 
@@ -1246,26 +1543,47 @@ const PHASES = {
 };
 
 const GLOSSARY = [
-  {term:"BMR (Basal Metabolic Rate)", def:"Calories your body burns at complete rest just to keep you alive. The starting point for every calorie target in this app."},
-  {term:"TDEE (Total Daily Energy Expenditure)", def:"Your BMR plus activity — this is your true maintenance calorie number, the baseline for both bulk and cut."},
-  {term:"Caloric surplus", def:"Eating more calories than your TDEE. Needed to gain muscle — used in the Lean Bulk phase."},
-  {term:"Caloric deficit", def:"Eating fewer calories than your TDEE. Needed to lose fat — used in the Cut phase."},
-  {term:"Macros", def:"Short for macronutrients: protein, carbs, and fat — the three things that make up your total calories."},
-  {term:"Lean bulk", def:"Gaining weight in a small, controlled surplus so most of the gain is muscle, not fat."},
-  {term:"Dirty bulk", def:"Eating in a large, uncontrolled surplus — gains weight fast but with a much higher fat-to-muscle ratio. Avoid this."},
-  {term:"Cut", def:"A deliberate fat-loss phase using a moderate calorie deficit while keeping protein and training high to preserve muscle."},
-  {term:"Body recomposition", def:"Losing fat and gaining muscle at roughly the same time — possible early on, slows down as you get more trained."},
-  {term:"Progressive overload", def:"Gradually increasing weight, reps, or sets over time — the actual driver of muscle and strength growth."},
-  {term:"Hypertrophy", def:"Muscle growth — the target of most of your weight training sets in this program."},
-  {term:"DOMS", def:"Delayed Onset Muscle Soreness — the soreness 1-2 days after a hard or new workout. Normal, but not something to chase every session."},
-  {term:"Refeed / maintenance break", def:"A planned period of eating at maintenance calories during a long cut, to help recovery, hormones, and motivation."},
-  {term:"NEAT", def:"Non-Exercise Activity Thermogenesis — calories burned from daily movement outside of workouts (walking, chores, fidgeting). Matters a lot in a cut."},
-  {term:"Water retention", def:"Temporary weight from water, not fat — common after salty meals, high-carb days, or new/intense workouts. Not a fat gain signal."},
-  {term:"Plateau", def:"A stretch where weight/strength stalls despite consistency. Normal — usually solved by patience, a diet-break, or recalculating your calories."},
-  {term:"Deload week", def:"A planned lighter training week (less weight/volume) every several weeks to help recovery and prevent burnout or injury."},
-  {term:"Set/rep notation (e.g. 10x1, 8x2, 6x1)", def:"How your workout sets are written: reps x number of sets at that rep count, usually increasing weight as reps drop."},
-  {term:"Muscle protein synthesis", def:"The process where your body repairs and rebuilds muscle fibers after training, using the protein you eat as raw material — this is literally 'gaining muscle' at the cellular level."},
-  {term:"Maintenance calories", def:"The calorie amount at which your weight stays roughly stable — the baseline both the bulk (above it) and cut (below it) are measured from."}
+  // ---- BOTH PHASES (foundational — apply throughout the whole 56 days) ----
+  {term:"BMR (Basal Metabolic Rate)", def:"Calories your body burns at complete rest just to keep you alive. The starting point for every calorie target in this app.", phase:"both"},
+  {term:"TDEE (Total Daily Energy Expenditure)", def:"Your BMR plus activity — this is your true maintenance calorie number, the baseline for both bulk and cut.", phase:"both"},
+  {term:"Macros", def:"Short for macronutrients: protein, carbs, and fat — the three things that make up your total calories.", phase:"both"},
+  {term:"Maintenance calories", def:"The calorie amount at which your weight stays roughly stable — the baseline both the bulk (above it) and cut (below it) are measured from.", phase:"both"},
+  {term:"Body recomposition", def:"Losing fat and gaining muscle at roughly the same time — possible early on, slows down as you get more trained.", phase:"both"},
+  {term:"Progressive overload", def:"Gradually increasing weight, reps, or sets over time — the actual driver of muscle and strength growth in either phase.", phase:"both"},
+  {term:"Hypertrophy", def:"Muscle growth — the target of most of your weight training sets, whether you're in a surplus or a deficit.", phase:"both"},
+  {term:"DOMS", def:"Delayed Onset Muscle Soreness — the soreness 1-2 days after a hard or new workout. Normal, but not something to chase every session.", phase:"both"},
+  {term:"Plateau", def:"A stretch where weight/strength stalls despite consistency. Normal — usually solved by patience, a diet-break, or recalculating your calories.", phase:"both"},
+  {term:"Deload week", def:"A planned lighter training week (less weight/volume) every several weeks to help recovery and prevent burnout or injury — useful whether bulking or cutting.", phase:"both"},
+  {term:"Set/rep notation (e.g. 10x1, 8x2, 6x1)", def:"How your workout sets are written: reps x number of sets at that rep count, usually increasing weight as reps drop.", phase:"both"},
+  {term:"Muscle protein synthesis", def:"The process where your body repairs and rebuilds muscle fibers after training, using the protein you eat as raw material — this is literally 'gaining muscle' at the cellular level.", phase:"both"},
+  {term:"Water retention", def:"Temporary weight from water, not fat — common after salty meals, high-carb days, or new/intense workouts. Reads as a scale spike in either phase, but it isn't real fat or muscle change.", phase:"both"},
+  {term:"Mini-cut", def:"A short, aggressive 2-3 week cut dropped into a longer bulk to keep fat gain in check before continuing to build. A bridge tactic between the two phases.", phase:"both"},
+
+  // ---- LEAN BULK ----
+  {term:"Caloric surplus", def:"Eating more calories than your TDEE. Needed to gain muscle — this is what powers the Lean Bulk phase.", phase:"bulk"},
+  {term:"Lean bulk", def:"Gaining weight in a small, controlled surplus so most of the gain is muscle, not fat — the approach this app's Bulk phase uses.", phase:"bulk"},
+  {term:"Dirty bulk", def:"Eating in a large, uncontrolled surplus — gains weight fast but with a much higher fat-to-muscle ratio. This app deliberately avoids it.", phase:"bulk"},
+  {term:"Nutrient partitioning", def:"How your body decides whether extra calories become muscle or fat. Training hard, sleeping well, and keeping the surplus small all improve your partitioning.", phase:"bulk"},
+  {term:"Newbie gains", def:"The faster-than-normal muscle growth available to beginners or anyone returning after a long break — a window worth taking advantage of with consistent training.", phase:"bulk"},
+  {term:"Rate of gain", def:"How fast the scale should move during a bulk — roughly 0.25-0.5 kg per week is the target range for staying lean while still building muscle.", phase:"bulk"},
+  {term:"Bulking plateau", def:"When weight gain stalls despite eating in a surplus — usually means TDEE has risen as you've gotten heavier, so calories need a small bump.", phase:"bulk"},
+  {term:"Anabolic window", def:"The old idea that you must eat protein within a strict 30-60 min post-workout or lose gains. Now understood as much wider — total daily protein matters far more than exact timing.", phase:"bulk"},
+  {term:"Overfeeding", def:"Consuming significantly more calories than needed for muscle growth. Past a certain point it just adds fat faster without building muscle any quicker — the reason this app caps the surplus at ~300 kcal.", phase:"bulk"},
+
+  // ---- CUT ----
+  {term:"Caloric deficit", def:"Eating fewer calories than your TDEE. Needed to lose fat — this is what powers the Cut phase.", phase:"cut"},
+  {term:"Cut", def:"A deliberate fat-loss phase using a moderate calorie deficit while keeping protein and training high to preserve muscle.", phase:"cut"},
+  {term:"Refeed / maintenance break", def:"A single planned day (or short stretch) eating at maintenance calories during a long cut, to help recovery, hormones, and motivation.", phase:"cut"},
+  {term:"Diet break", def:"A longer pause than a refeed — typically 1-2 weeks back at maintenance calories mid-cut, used to reset hunger hormones and mental fatigue before resuming the deficit.", phase:"cut"},
+  {term:"NEAT", def:"Non-Exercise Activity Thermogenesis — calories burned from daily movement outside of workouts (walking, chores, fidgeting). It tends to quietly drop as a cut goes on, which is why step count matters.", phase:"cut"},
+  {term:"Metabolic adaptation", def:"Your body's tendency to burn slightly fewer calories the longer and deeper a cut goes, as an energy-conservation response. Normal — it's why targets get recalculated as weight drops.", phase:"cut"},
+  {term:"Reverse diet", def:"Slowly raising calories back up after a cut ends, instead of jumping straight to a surplus — helps limit fat rebound and rebuild TDEE gradually.", phase:"cut"},
+  {term:"Diet fatigue", def:"The mental and physical tiredness that builds up from sustained restriction — a real signal to consider a refeed or diet break, not just 'pushing through'.", phase:"cut"},
+  {term:"Muscle preservation", def:"The main goal of training and high protein during a cut — the deficit is there to remove fat, not muscle, so lifting heavy stays a priority.", phase:"cut"},
+  {term:"Rate of loss", def:"How fast the scale should move during a cut — roughly 0.5-1% of bodyweight per week keeps fat loss steady without excessive muscle loss.", phase:"cut"},
+  {term:"Sodium manipulation", def:"Deliberately raising or lowering salt intake, which shifts water weight up or down within a day or two. Useful to understand so a salty meal doesn't get mistaken for fat gain.", phase:"cut"},
+  {term:"Fasted cardio", def:"Doing light cardio before eating, on an empty stomach. It doesn't burn extra fat compared to fed cardio over the full day — the deficit is what matters, not the fasted state.", phase:"cut"},
+  {term:"Leptin & ghrelin", def:"Your body's fullness and hunger hormones. Leptin (fullness) drops and ghrelin (hunger) rises the longer a cut runs, which is the biological reason cutting gets harder over time — not a willpower issue.", phase:"cut"}
 ];
 
 // ---------- LOOKMAX DATA ----------
@@ -1431,6 +1749,11 @@ let currentDpPlanIndex = 0;
 let openWeeks = new Set([0]);
 let streakState = {lastActiveDate:null, currentStreak:0, longestStreak:0};
 let unlockedBadges = [];
+let bodyLogState = [];
+let recoveryLogState = [];
+let prLogState = [];
+let hydrationState = {};
+let currentProgressView = "stats";
 
 async function loadState(){
   try{
@@ -1466,6 +1789,22 @@ async function loadState(){
     const b = await window.storage.get('unlocked-badges', false);
     if(b && b.value) unlockedBadges = JSON.parse(b.value);
   }catch(e){}
+  try{
+    const bl = await window.storage.get('body-log', false);
+    if(bl && bl.value) bodyLogState = JSON.parse(bl.value);
+  }catch(e){}
+  try{
+    const rl = await window.storage.get('recovery-log', false);
+    if(rl && rl.value) recoveryLogState = JSON.parse(rl.value);
+  }catch(e){}
+  try{
+    const pl = await window.storage.get('pr-log', false);
+    if(pl && pl.value) prLogState = JSON.parse(pl.value);
+  }catch(e){}
+  try{
+    const hy = await window.storage.get('hydration-log', false);
+    if(hy && hy.value) hydrationState = JSON.parse(hy.value);
+  }catch(e){}
   renderAll();
 }
 
@@ -1476,6 +1815,10 @@ async function saveFatburn(){ try{ await window.storage.set('fatburn-state', JSO
 async function saveLookmax(){ try{ await window.storage.set('lookmax-state', JSON.stringify(lookmaxState), false); }catch(e){} }
 async function saveStreak(){ try{ await window.storage.set('streak-state', JSON.stringify(streakState), false); }catch(e){} }
 async function saveBadges(){ try{ await window.storage.set('unlocked-badges', JSON.stringify(unlockedBadges), false); }catch(e){} }
+async function saveBodyLog(){ try{ await window.storage.set('body-log', JSON.stringify(bodyLogState), false); }catch(e){} }
+async function saveRecoveryLog(){ try{ await window.storage.set('recovery-log', JSON.stringify(recoveryLogState), false); }catch(e){} }
+async function savePrLog(){ try{ await window.storage.set('pr-log', JSON.stringify(prLogState), false); }catch(e){} }
+async function saveHydration(){ try{ await window.storage.set('hydration-log', JSON.stringify(hydrationState), false); }catch(e){} }
 
 // ---------- HAPTICS & CELEBRATION ----------
 function haptic(pattern){
@@ -1535,24 +1878,26 @@ function computeBadges(){
   const weekDoneCount = ROADMAP.filter((wk,wi)=> wk.tasks.every((_,ti)=> !!roadmapState[`w${wi}-${ti}`])).length;
   const dayNum = getDayNum();
   return [
-    {id:'first-step', icon:'🌱', name:'First Step', done:(totalRoadmap+totalWorkoutEx+totalFatburn+totalLookmax)>=1},
-    {id:'week-one', icon:'🏁', name:'Week One', done: weekDoneCount>=1},
-    {id:'streak-3', icon:'🔥', name:'3-Day Streak', done:(streakState.longestStreak||0)>=3},
-    {id:'streak-7', icon:'🔥', name:'7-Day Streak', done:(streakState.longestStreak||0)>=7},
-    {id:'halfway', icon:'⚡', name:'Halfway', done: dayNum>=28},
-    {id:'iron-will', icon:'💪', name:'Iron Will', done:(totalWorkoutEx+totalFatburn)>=20},
-    {id:'glow-up', icon:'✨', name:'Glow Up', done: lookmaxMax>0 && totalLookmax>=lookmaxMax},
-    {id:'all-weeks', icon:'🗺️', name:'Full Map', done: weekDoneCount>=8},
-    {id:'finisher', icon:'🏆', name:'Finisher', done: dayNum>=56}
+    {id:'first-step', icon:'seed', name:'First Step', done:(totalRoadmap+totalWorkoutEx+totalFatburn+totalLookmax)>=1},
+    {id:'week-one', icon:'flag', name:'Week One', done: weekDoneCount>=1},
+    {id:'streak-3', icon:'flame', name:'3-Day Streak', done:(streakState.longestStreak||0)>=3},
+    {id:'streak-7', icon:'flame2', name:'7-Day Streak', done:(streakState.longestStreak||0)>=7},
+    {id:'halfway', icon:'bolt', name:'Halfway', done: dayNum>=28},
+    {id:'iron-will', icon:'dumbbell', name:'Iron Will', done:(totalWorkoutEx+totalFatburn)>=20},
+    {id:'glow-up', icon:'sparkle', name:'Glow Up', done: lookmaxMax>0 && totalLookmax>=lookmaxMax},
+    {id:'all-weeks', icon:'map', name:'Full Map', done: weekDoneCount>=8},
+    {id:'finisher', icon:'trophy', name:'Finisher', done: dayNum>=56}
   ];
 }
 function checkNewBadges(){
   const badges = computeBadges();
   let newlyUnlocked = false;
+  const newIds = [];
   badges.forEach(b=>{
     if(b.done && !unlockedBadges.includes(b.id)){
       unlockedBadges.push(b.id);
       newlyUnlocked = true;
+      newIds.push(b.id);
     }
   });
   if(newlyUnlocked){
@@ -1561,7 +1906,7 @@ function checkNewBadges(){
     haptic([10,40,10]);
     showToast('New badge unlocked!');
   }
-  return badges;
+  return {badges, newIds};
 }
 
 // ---------- SWIPE TO COMPLETE ----------
@@ -1594,10 +1939,12 @@ function attachSwipe(el, onComplete){
 function switchTab(key){
   document.querySelectorAll('.navbar .nav-item').forEach(t=> t.classList.toggle('active', t.dataset.tab===key));
   document.querySelectorAll('.bn-item').forEach(b=> b.classList.toggle('active', b.dataset.tab===key));
+  document.querySelectorAll('.sidebar-item').forEach(s=> s.classList.toggle('active', s.dataset.tab===key));
   document.querySelectorAll('.section').forEach(s=> s.classList.remove('active'));
   const sec = document.getElementById('sec-'+key);
   if(sec) sec.classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
+  if(key === 'log'){ setTimeout(()=>{ renderWeightChart(); renderPrChart(); }, 30); }
 }
 
 // ---------- HOME DASHBOARD ----------
@@ -1615,10 +1962,10 @@ function renderHome(){
   `;
   document.getElementById('homeStreak').textContent = streakState.currentStreak || 0;
 
-  const badges = checkNewBadges();
+  const {badges, newIds} = checkNewBadges();
   document.getElementById('badgesGrid').innerHTML = badges.map(b=>`
-    <div class="badge ${b.done?'unlocked':''}" title="${b.name}">
-      <div class="b-icon">${b.icon}</div>
+    <div class="badge ${b.done?'unlocked':''} ${newIds.includes(b.id)?'just-unlocked':''}" title="${b.name}">
+      <div class="b-icon">${badgeIcon(b.icon)}</div>
       <div class="b-name">${b.name}</div>
     </div>
   `).join('');
@@ -1647,6 +1994,22 @@ function renderHome(){
   } else {
     ntCard.style.display = 'none';
   }
+}
+
+// ---------- BADGE ICONS (line-icon set matching nav family) ----------
+function badgeIcon(key){
+  const icons = {
+    seed:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-seed"><path class="bi-stem" d="M12 21V10"/><path class="bi-leaf-l" d="M12 13c-4 0-7-3-7-7 4 0 7 3 7 7z"/><path class="bi-leaf-r" d="M12 10c4 0 7-3 7-7-4 0-7 3-7 7z"/></svg>`,
+    flag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-flag"><path d="M5 21V4"/><path class="bi-cloth" d="M5 4h13l-3 4 3 4H5"/></svg>`,
+    flame:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-flame"><path class="bi-flicker" d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1.5-1-2-1-3.5 2 1 3 3.5 3 5.5a5 5 0 0 1-10 0C7 7 10 5 12 2z"/></svg>`,
+    flame2:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-flame"><path class="bi-flicker" d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1.5-1-2-1-3.5 2 1 3 3.5 3 5.5a5 5 0 0 1-10 0C7 7 10 5 12 2z"/><path class="bi-flicker2" d="M12 12c.5 1.6-1 2-1 3.5a1.5 1.5 0 0 0 3 0c0-.7-.4-1-.4-1.7"/></svg>`,
+    bolt:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-bolt"><path class="bi-zap" d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>`,
+    dumbbell:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-dumbbell"><path class="bi-bar" d="M6.5 6.5l11 11M20.5 4l-2.5 2.5M4 20.5L6.5 18M3 8l2-2 3 3-2 2zM16 21l2-2-3-3-2 2zM15 4l2-2 3 3-2 2zM3 16l2 2 3-3-2-2z"/></svg>`,
+    sparkle:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-sparkle"><path class="bi-star1" d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4 5.7 21l2.3-7.2-6-4.6h7.6z"/></svg>`,
+    map:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-map"><path class="bi-fold" d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>`,
+    trophy:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="bi bi-trophy"><path class="bi-cup" d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 5H4a3 3 0 0 0 3 5M17 5h3a3 3 0 0 1-3 5"/><path d="M12 14v3M9 21h6M10 17h4v4h-4z"/></svg>`
+  };
+  return icons[key] || icons.sparkle;
 }
 
 // ---------- GLOBAL SEARCH ----------
@@ -1785,7 +2148,7 @@ function renderRoadmap(){
     week.tasks.forEach((_,ti)=>{ if(roadmapState[`${weekKeyBase}-${ti}`]) weekDone++; });
     doneTotal += weekDone;
     const card = document.createElement('div');
-    card.className = 'week-card' + (openWeeks.has(wi) ? ' open' : '');
+    card.className = 'week-card bento-item' + (openWeeks.has(wi) ? ' open' : '') + (wi % 5 === 0 ? ' bento-wide' : '');
     card.dataset.week = wi;
     card.innerHTML = `
       <div class="week-head" data-week="${wi}">
@@ -2104,7 +2467,7 @@ function renderLookmaxTasks(){
     doneTotal += catDone;
     grandTotal += cat.items.length;
     const card = document.createElement('div');
-    card.className = 'week-card' + (openWeeks.has('lm-'+ci) ? ' open' : '');
+    card.className = 'week-card bento-item' + (openWeeks.has('lm-'+ci) ? ' open' : '');
     card.dataset.cat = cat.key;
     card.innerHTML = `
       <div class="week-head" data-cat="${cat.key}" data-idx="${ci}">
@@ -2235,13 +2598,30 @@ function renderLookmax(){
 }
 
 // ---------- RENDER: GLOSSARY ----------
+let currentGlossaryPhase = "all";
+const GLOSSARY_PHASE_LABEL = {both:"Both Phases", bulk:"Lean Bulk", cut:"Cut"};
 function renderGlossary(){
-  document.getElementById('glossaryList').innerHTML = GLOSSARY.map(g=>`
+  const filtered = currentGlossaryPhase === "all" ? GLOSSARY : GLOSSARY.filter(g=> g.phase === currentGlossaryPhase);
+  document.getElementById('glossaryCount').textContent = filtered.length;
+  document.getElementById('glossaryList').innerHTML = filtered.map(g=>`
     <div class="gloss-item">
-      <div class="gloss-term">${g.term}</div>
+      <div class="gloss-term-row">
+        <div class="gloss-term">${g.term}</div>
+        <span class="gloss-pill gp-${g.phase}">${GLOSSARY_PHASE_LABEL[g.phase]}</span>
+      </div>
       <div class="gloss-def">${g.def}</div>
     </div>
   `).join('');
+}
+function renderGlossaryPhaseTabs(){
+  document.querySelectorAll('#glossaryPhaseTabs .tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.gphase === currentGlossaryPhase);
+    t.addEventListener('click', ()=>{
+      currentGlossaryPhase = t.dataset.gphase;
+      renderGlossaryPhaseTabs();
+      renderGlossary();
+    });
+  });
 }
 
 // ---------- RENDER: LOG ----------
@@ -2259,6 +2639,292 @@ function renderLog(){
   `).join('');
   list.innerHTML = rows;
 }
+
+// ---------- PROGRESS HUB ----------
+const progressCharts = {};
+function chartColor(name){
+  const style = getComputedStyle(document.documentElement);
+  return style.getPropertyValue(name).trim();
+}
+function drawLineChart(canvasId, labels, data, label){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas || typeof Chart === 'undefined') return;
+  if(progressCharts[canvasId]) progressCharts[canvasId].destroy();
+  const ember = chartColor('--ember') || '#FF4763';
+  const muted = chartColor('--muted') || '#A3A3AD';
+  const line = chartColor('--line') || 'rgba(255,255,255,0.08)';
+  progressCharts[canvasId] = new Chart(canvas, {
+    type:'line',
+    data:{ labels, datasets:[{ label, data, borderColor:ember, backgroundColor:'transparent', tension:0.35, pointRadius:3, pointBackgroundColor:ember, borderWidth:2 }] },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ ticks:{ color:muted, font:{ family:'JetBrains Mono', size:10 } }, grid:{ color:line } },
+        y:{ ticks:{ color:muted, font:{ family:'JetBrains Mono', size:10 } }, grid:{ color:line } }
+      }
+    }
+  });
+}
+function renderWeightChart(){
+  const wrap = document.getElementById('weightChartWrap');
+  if(!profile.history || profile.history.length < 2){
+    if(wrap) wrap.style.display = 'none';
+    const canvas = document.getElementById('weightTrendChart');
+    if(canvas && progressCharts['weightTrendChart']){ progressCharts['weightTrendChart'].destroy(); delete progressCharts['weightTrendChart']; }
+    return;
+  }
+  if(wrap) wrap.style.display = '';
+  const sorted = [...profile.history].sort((a,b)=> a.date.localeCompare(b.date));
+  drawLineChart('weightTrendChart', sorted.map(h=>h.date.slice(5)), sorted.map(h=>h.weight), 'Weight (kg)');
+}
+
+function renderProgressViewSwitch(){
+  document.querySelectorAll('#progressViewSwitch .view-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.pview === currentProgressView);
+    b.addEventListener('click', ()=>{
+      currentProgressView = b.dataset.pview;
+      renderProgressViewSwitch();
+      document.getElementById('progressStatsView').style.display = currentProgressView==='stats' ? '' : 'none';
+      document.getElementById('progressBodyView').style.display = currentProgressView==='body' ? '' : 'none';
+      document.getElementById('progressRecoveryView').style.display = currentProgressView==='recovery' ? '' : 'none';
+      document.getElementById('progressRecordsView').style.display = currentProgressView==='records' ? '' : 'none';
+      setTimeout(()=>{ renderWeightChart(); renderPrChart(); }, 30);
+    });
+  });
+}
+
+// ---- Body Measurements ----
+function renderBodyLog(){
+  const list = document.getElementById('bodyLogList');
+  if(!bodyLogState.length){ list.innerHTML = '<div class="empty">No measurements yet — log your first entry above.</div>'; return; }
+  const sorted = [...bodyLogState].sort((a,b)=> b.date.localeCompare(a.date));
+  list.innerHTML = sorted.map(e=>{
+    const parts = [];
+    if(e.bodyFat) parts.push(`BF ${e.bodyFat}%`);
+    if(e.chest) parts.push(`Chest ${e.chest}cm`);
+    if(e.waist) parts.push(`Waist ${e.waist}cm`);
+    if(e.arms) parts.push(`Arms ${e.arms}cm`);
+    if(e.thighs) parts.push(`Thighs ${e.thighs}cm`);
+    if(e.shoulders) parts.push(`Shoulders ${e.shoulders}cm`);
+    return `<div class="progress-history-row"><span class="ph-date">${e.date}</span><span class="ph-main">${parts.join(' · ') || 'No values'}</span><span></span></div>`;
+  }).join('');
+}
+document.getElementById('saveBodyLog').addEventListener('click', async ()=>{
+  const date = document.getElementById('bodyDate').value || new Date().toISOString().slice(0,10);
+  const entry = {
+    date,
+    bodyFat: document.getElementById('bodyFat').value,
+    chest: document.getElementById('bodyChest').value,
+    waist: document.getElementById('bodyWaist').value,
+    arms: document.getElementById('bodyArms').value,
+    thighs: document.getElementById('bodyThighs').value,
+    shoulders: document.getElementById('bodyShoulders').value
+  };
+  if(!entry.bodyFat && !entry.chest && !entry.waist && !entry.arms && !entry.thighs && !entry.shoulders){
+    showToast('Enter at least one measurement'); return;
+  }
+  bodyLogState.push(entry);
+  await saveBodyLog();
+  renderBodyLog();
+  ['bodyFat','bodyChest','bodyWaist','bodyArms','bodyThighs','bodyShoulders'].forEach(id=> document.getElementById(id).value = '');
+  showToast('Measurements logged');
+});
+
+// ---- Recovery ----
+function calcRecoveryScore(d){
+  const sleep = Math.min(30, (Number(d.sleep)||0)/8*30);
+  const quality = Math.min(20, (Number(d.quality)||0)*2);
+  const soreness = Math.max(0, (10-(Number(d.soreness)||5))*1.5);
+  const stress = Math.max(0, (10-(Number(d.stress)||5))*1.5);
+  const energy = Math.min(20, (Number(d.energy)||0)*2);
+  let hrPenalty = 0;
+  if(d.hr && Number(d.hr) > 70) hrPenalty = Math.min(15, (Number(d.hr)-70)*0.5);
+  return Math.max(0, Math.min(100, Math.round(sleep+quality+soreness+stress+energy-hrPenalty)));
+}
+function readinessDirective(score){
+  if(score >= 80) return "Green light — good day to push intensity or add a set.";
+  if(score >= 60) return "Train normally, but watch how the session feels.";
+  return "Recovery is low — consider a lighter session, extra warm-up, or a rest day.";
+}
+function scoreClass(score){ return score>=80?'good':score>=60?'mid':'low'; }
+function renderReadinessCard(){
+  const ring = document.getElementById('readinessRing');
+  const text = document.getElementById('readinessText');
+  if(!recoveryLogState.length){
+    ring.innerHTML = `<svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--card-hover)" stroke-width="6"/></svg><div class="rr-label">—</div>`;
+    text.textContent = "Log a check-in below to see your readiness score and today's training directive.";
+    return;
+  }
+  const latest = [...recoveryLogState].sort((a,b)=> b.date.localeCompare(a.date))[0];
+  const score = latest.score;
+  const r=26, c=2*Math.PI*r, offset = c - (score/100)*c;
+  ring.innerHTML = `<svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--card-hover)" stroke-width="6"/><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--ember)" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 32 32)"/></svg><div class="rr-label">${score}</div>`;
+  text.textContent = `${latest.date} — ${readinessDirective(score)}`;
+}
+function renderRecoveryLog(){
+  renderReadinessCard();
+  const list = document.getElementById('recoveryLogList');
+  if(!recoveryLogState.length){ list.innerHTML = '<div class="empty">No check-ins yet — log your first one above.</div>'; return; }
+  const sorted = [...recoveryLogState].sort((a,b)=> b.date.localeCompare(a.date));
+  list.innerHTML = sorted.map(e=>`
+    <div class="progress-history-row">
+      <span class="ph-date">${e.date}</span>
+      <span class="ph-main">Sleep ${e.sleep||'-'}h · Soreness ${e.soreness||'-'} · Stress ${e.stress||'-'} · Energy ${e.energy||'-'}</span>
+      <span class="ph-score ${scoreClass(e.score)}">${e.score}/100</span>
+    </div>
+  `).join('');
+}
+document.getElementById('saveRecoveryLog').addEventListener('click', async ()=>{
+  const date = document.getElementById('recDate').value || new Date().toISOString().slice(0,10);
+  const d = {
+    date,
+    sleep: document.getElementById('recSleep').value,
+    quality: document.getElementById('recQuality').value,
+    soreness: document.getElementById('recSoreness').value,
+    stress: document.getElementById('recStress').value,
+    energy: document.getElementById('recEnergy').value,
+    hr: document.getElementById('recHr').value
+  };
+  if(!d.sleep && !d.soreness && !d.stress && !d.energy){ showToast('Fill in at least sleep, soreness, stress or energy'); return; }
+  d.score = calcRecoveryScore(d);
+  recoveryLogState.push(d);
+  await saveRecoveryLog();
+  renderRecoveryLog();
+  ['recSleep','recQuality','recSoreness','recStress','recEnergy','recHr'].forEach(id=> document.getElementById(id).value = '');
+  showToast(`Recovery score: ${d.score}/100`);
+  renderHome();
+});
+
+// ---- Records / PRs ----
+function calcEpley1RM(weight, reps){
+  weight = Number(weight); reps = Number(reps);
+  return (weight>0 && reps>0) ? weight*(1+reps/30) : 0;
+}
+function allKnownExercises(){
+  const set = new Set();
+  Object.values(WORKOUTS).forEach(day=> day.exercises.forEach(ex=> set.add(ex.n)));
+  return [...set];
+}
+function renderPrExerciseOptions(){
+  const dl = document.getElementById('prExerciseSuggestions');
+  dl.innerHTML = allKnownExercises().map(n=> `<option value="${n}"></option>`).join('');
+  const filter = document.getElementById('prExerciseFilter');
+  const logged = [...new Set(prLogState.map(p=>p.exercise))];
+  const current = filter.value;
+  filter.innerHTML = '<option value="All">All exercises</option>' + logged.map(n=>`<option ${n===current?'selected':''}>${n}</option>`).join('');
+  if(!logged.includes(filter.value) && filter.value !== 'All' && logged.length) filter.value = logged[0];
+}
+function renderPrChart(){
+  const wrap = document.getElementById('prChartWrap');
+  const filter = document.getElementById('prExerciseFilter')?.value || 'All';
+  let rows = [...prLogState].sort((a,b)=> a.date.localeCompare(b.date));
+  if(filter !== 'All') rows = rows.filter(p=> p.exercise === filter);
+  else{
+    const logged = [...new Set(prLogState.map(p=>p.exercise))];
+    if(logged.length) rows = rows.filter(p=> p.exercise === logged[0]);
+  }
+  if(!rows.length){
+    if(wrap) wrap.style.display = 'none';
+    if(progressCharts['prTrendChart']){ progressCharts['prTrendChart'].destroy(); delete progressCharts['prTrendChart']; }
+    return;
+  }
+  if(wrap) wrap.style.display = '';
+  drawLineChart('prTrendChart', rows.map(r=>r.date.slice(5)), rows.map(r=> Math.round(r.oneRm*10)/10), (filter==='All'? rows[0].exercise : filter)+' est. 1RM (kg)');
+}
+function renderPrLog(){
+  renderPrExerciseOptions();
+  const list = document.getElementById('prLogList');
+  if(!prLogState.length){ list.innerHTML = '<div class="empty">No PRs logged yet — add your first lift above.</div>'; return; }
+  const sorted = [...prLogState].sort((a,b)=> b.date.localeCompare(a.date));
+  list.innerHTML = sorted.map(p=>{
+    const priorBest = prLogState.filter(x=> x.exercise===p.exercise && x.date < p.date).reduce((max,x)=> Math.max(max, x.oneRm), 0);
+    const delta = p.oneRm - priorBest;
+    const deltaHtml = priorBest ? `<span class="pr-delta ${delta>0?'up':'flat'}">${delta>0?'+':''}${delta.toFixed(1)}kg</span>` : `<span class="pr-delta up">NEW</span>`;
+    return `<div class="progress-history-row">
+      <span class="ph-date">${p.date}</span>
+      <span class="ph-main"><b>${p.exercise}</b> — ${p.weight}kg × ${p.reps} → ${p.oneRm.toFixed(1)}kg 1RM</span>
+      <span>${deltaHtml}</span>
+    </div>`;
+  }).join('');
+  renderPrChart();
+}
+document.getElementById('savePrLog').addEventListener('click', async ()=>{
+  const exercise = document.getElementById('prExercise').value.trim();
+  const weight = document.getElementById('prWeight').value;
+  const reps = document.getElementById('prReps').value;
+  const date = document.getElementById('prDate').value || new Date().toISOString().slice(0,10);
+  if(!exercise || !weight || !reps){ showToast('Enter exercise, weight and reps'); return; }
+  const oneRm = calcEpley1RM(weight, reps);
+  prLogState.push({ exercise, weight:Number(weight), reps:Number(reps), oneRm, date });
+  await savePrLog();
+  renderPrLog();
+  document.getElementById('prExercise').value = '';
+  document.getElementById('prWeight').value = '';
+  document.getElementById('prReps').value = '';
+  showToast(`Logged — est. 1RM ${oneRm.toFixed(1)}kg`);
+});
+document.getElementById('prExerciseFilter').addEventListener('change', renderPrChart);
+
+// ---------- HYDRATION (Home widget) ----------
+const HYDRATION_GOAL = 3000;
+function renderHydration(){
+  const today = todayStr();
+  const amt = hydrationState[today] || 0;
+  document.getElementById('hydrationAmt').textContent = `${amt} / ${HYDRATION_GOAL} ml`;
+  document.getElementById('hydrationBarFill').style.width = Math.min(100, (amt/HYDRATION_GOAL)*100) + '%';
+}
+document.querySelectorAll('[data-add-water]').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    const today = todayStr();
+    hydrationState[today] = (hydrationState[today]||0) + Number(btn.dataset.addWater);
+    haptic(10);
+    renderHydration();
+    touchStreak();
+    renderHome();
+    await saveHydration();
+    if(hydrationState[today] >= HYDRATION_GOAL && hydrationState[today] - Number(btn.dataset.addWater) < HYDRATION_GOAL){
+      showToast('Hydration goal hit! 💧');
+    }
+  });
+});
+document.getElementById('resetHydration').addEventListener('click', async ()=>{
+  hydrationState[todayStr()] = 0;
+  renderHydration();
+  await saveHydration();
+  showToast('Hydration reset for today');
+});
+
+// ---------- WORKOUT TOOLS: REST TIMER + QUICK 1RM ----------
+let workoutTimerInt = null;
+function startWorkoutTimer(seconds){
+  clearInterval(workoutTimerInt);
+  let time = seconds;
+  const display = document.getElementById('workoutTimerDisplay');
+  const tick = ()=>{
+    const m = Math.floor(time/60).toString().padStart(2,'0');
+    const s = (time%60).toString().padStart(2,'0');
+    display.textContent = `${m}:${s}`;
+    if(time <= 0){ clearInterval(workoutTimerInt); display.textContent = 'GO!'; haptic([10,30,10]); return; }
+    time--;
+  };
+  tick();
+  workoutTimerInt = setInterval(tick, 1000);
+}
+document.querySelectorAll('[data-timer]').forEach(btn=>{
+  btn.addEventListener('click', ()=> startWorkoutTimer(Number(btn.dataset.timer)));
+});
+document.getElementById('stopWorkoutTimer').addEventListener('click', ()=>{
+  clearInterval(workoutTimerInt);
+  document.getElementById('workoutTimerDisplay').textContent = '00:00';
+});
+function updateQuickRm(){
+  const w = document.getElementById('quickRmWeight').value;
+  const r = document.getElementById('quickRmReps').value;
+  document.getElementById('quickRmResult').textContent = calcEpley1RM(w,r).toFixed(1);
+}
+document.getElementById('quickRmWeight').addEventListener('input', updateQuickRm);
+document.getElementById('quickRmReps').addEventListener('input', updateQuickRm);
 
 // ---------- MODAL ----------
 const overlay = document.getElementById('statOverlay');
@@ -2306,7 +2972,7 @@ document.getElementById('saveStat').addEventListener('click', async ()=>{
 });
 
 // ---------- TABS ----------
-document.querySelectorAll('.navbar .nav-item').forEach(tab=>{
+document.querySelectorAll('.navbar .nav-item, .sidebar-item').forEach(tab=>{
   tab.addEventListener('click', ()=>{ haptic(8); switchTab(tab.dataset.tab); });
 });
 initGlobalSearch();
@@ -2327,8 +2993,16 @@ function renderAll(){
   renderDayPlans();
   renderLookmax();
   renderLookmaxViewSwitch();
+  renderGlossaryPhaseTabs();
   renderGlossary();
   renderLog();
+  renderProgressViewSwitch();
+  renderBodyLog();
+  renderRecoveryLog();
+  renderPrLog();
+  renderHydration();
+  const today = new Date().toISOString().slice(0,10);
+  ['bodyDate','recDate','prDate'].forEach(id=>{ const el=document.getElementById(id); if(el && !el.value) el.value = today; });
   renderHome();
 }
 loadState();
